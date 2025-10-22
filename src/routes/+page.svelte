@@ -5,26 +5,29 @@
 	import CalendarIcon from 'lucide-svelte/icons/calendar-search';
 	import ProductCard from '$lib/components/ProductCard.svelte';
 
+	// サンプル画像パス
 	import Kaki1 from '$lib/images/sample/kaki1.png';
 	import Kaki2 from '$lib/images/sample/kaki2.jpeg';
 	import Kaki3 from '$lib/images/sample/kaki3.jpg';
+	import muki1 from '$lib/images/sample/muki1.jpg';
 
 	let openCalendar = $state(false);
 
+	// サンプル商品データ
 	const products = [
-		{ id: 'p1', name: '殻付き生牡蠣', price: 4800, image: Kaki1 },
-		{ id: 'p2', name: '特選殻付き生牡蠣', price: 5200, image: Kaki2 },
-		{ id: 'p3', name: '隠岐産殻付き生牡蠣', price: 7900, image: Kaki3 },
+		{ id: 'oyster-001', name: '殻付き生牡蠣', price: 4800, image: Kaki1, type: 'with-shell' },
+		{ id: 'oyster-002', name: '特選殻付き生牡蠣', price: 5200, image: Kaki2, type: 'with-shell' },
+		{ id: 'oyster-003', name: '隠岐産殻付き生牡蠣', price: 7900, image: Kaki3, type: 'with-shell' },
+		{ id: 'oyster-004', name: '画像なし商品サンプル', price: 3500, type: 'no-image' },
 		{
-			id: 'p4',
-			name: 'ログイン必須商品A',
-			isLoggedInRequired: true
+			id: 'oyster-005',
+			name: 'むき身 ページサンプル',
+			price: 2800,
+			image: muki1,
+			type: 'no-shell'
 		},
-		{
-			id: 'p5',
-			name: 'ログイン必須商品B',
-			isLoggedInRequired: true
-		}
+		{ id: 'oyster-006', name: 'ログイン必須商品A', isLoggedInRequired: true },
+		{ id: 'oyster-007', name: 'ログイン必須商品B', isLoggedInRequired: true }
 	];
 </script>
 

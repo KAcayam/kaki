@@ -4,6 +4,7 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import Calendar from '$lib/components/SelectCalendar.svelte';
 	import CalendarIcon from 'lucide-svelte/icons/calendar-search';
+	import { de } from 'zod/locales';
 
 	let openCalendar = $state(false);
 
@@ -12,18 +13,46 @@
 		inStock: boolean;
 	}
 
-	let { product }: { product: Product } = $props();
+	let {
+		product,
+		productType = 'withShell'
+	}: { product: Product; productType?: 'withShell' | 'noShell' | 'noImage' } = $props();
 
 	// 数量の選択肢を生成
-	const quantities = Array.from({ length: 10 }, (_, i) => i + 1); // 1から10までの配列
-	let selectedQuantity = $state<string>('1'); // 選択された数量
-	const triggerContent = $derived(selectedQuantity); // Select.Triggerに表示するテキスト
+	const quantities = Array.from({ length: 10 }, (_, i) => i + 1); // lengthで最大選択数を設定
+	let selectedQuantity = $state<string>('1');
+	const triggerContent = $derived(selectedQuantity);
+
+	// サンプル表示の際の例　運用時はデータによってproductTypeを設定
+	const priceUnit = $derived(
+		productType === 'withShell' || productType === 'noImage'
+			? '1kgあたり'
+			: productType === 'noShell'
+				? '1パック(500g)あたり'
+				: undefined // どの条件にも合致しない場合は undefined
+	);
+
+	const quantityLabel = $derived(
+		productType === 'withShell' || productType === 'noImage'
+			? '数量 (kg)'
+			: productType === 'noShell'
+				? '数量 (パック)'
+				: undefined
+	);
+
+	const quantitySuffix = $derived(
+		productType === 'withShell' || productType === 'noImage'
+			? 'kg'
+			: productType === 'noShell'
+				? 'パック'
+				: undefined
+	);
 </script>
 
 <div class="flex flex-col">
 	<div class="max-w-xs rounded-lg border p-4">
 		<div class="mb-4">
-			<p class="text-sm text-muted-foreground">1kgあたり</p>
+			<p class="text-sm text-muted-foreground">{priceUnit}</p>
 			<div class="flex items-baseline gap-2">
 				<span class="text-2xl font-medium">{product.price.toLocaleString()}</span>
 				<span class="text-lg">円</span>
@@ -73,7 +102,7 @@
 					</Select.Trigger>
 					<Select.Content>
 						<Select.Group>
-							<Select.Label>数量 (kg)</Select.Label>
+							<Select.Label>{quantityLabel}</Select.Label>
 							{#each quantities as quantity (quantity)}
 								<Select.Item value={quantity.toString()} label={quantity.toString()}>
 									{quantity}
@@ -82,7 +111,7 @@
 						</Select.Group>
 					</Select.Content>
 				</Select.Root>
-				<span class="text-sm">kg</span>
+				<span class="text-sm text-muted-foreground">{quantitySuffix}</span>
 			</div>
 		</div>
 
