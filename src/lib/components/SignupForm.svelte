@@ -247,18 +247,25 @@
 					<input
 						id="campaign"
 						type="checkbox"
-						class="h-4 w-4"
+						class="h-4 w-4 cursor-pointer"
 						bind:checked={receiveCampaignEmails}
 					/>
 					<label for="campaign">キャンペーンメールを受信する</label>
 				</div>
 
 				<div class="flex flex-col gap-3">
-					<Button type="submit" class="w-full bg-blue-500 font-bold text-white hover:bg-blue-600">
+					<Button
+						type="submit"
+						class="w-full cursor-pointer bg-blue-500 font-bold text-white hover:bg-blue-600"
+					>
 						登録
 					</Button>
 					<a href="/login">
-						<Button type="button" variant="outline" class="w-full font-bold text-gray-600">
+						<Button
+							type="button"
+							variant="outline"
+							class="w-full cursor-pointer font-bold text-gray-600"
+						>
 							キャンセル
 						</Button>
 					</a>

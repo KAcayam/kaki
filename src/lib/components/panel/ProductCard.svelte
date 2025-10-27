@@ -39,7 +39,7 @@
 					<img
 						src={product.image}
 						alt={product.name}
-						class="absolute inset-0 h-full w-full object-contain"
+						class="absolute inset-0 h-full w-full cursor-pointer object-contain"
 					/>
 				{:else}
 					<!-- 画像なし表示 -->
@@ -56,7 +56,7 @@
 	<!-- 商品名と価格 -->
 	<div class="flex flex-col">
 		{#if showLoginRequired}
-			<p class="text-lg text-gray-600">ログインが必要です</p>
+			<p class="text-lg text-gray-600">ログインすると商品が閲覧できます</p>
 		{:else}
 			<p class="text-lg">{product.name}</p>
 			{#if product.price !== undefined}

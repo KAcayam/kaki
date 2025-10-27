@@ -38,7 +38,7 @@
 		<Card.Content>
 			<form class="flex w-full max-w-sm flex-col gap-6" onsubmit={onSubmit} novalidate>
 				<div>
-					<Button variant="outline" type="button" class="w-full">
+					<Button variant="outline" type="button" class="w-full cursor-pointer">
 						Sign in with Googleのロゴ付きボタン
 					</Button>
 				</div>
@@ -62,11 +62,15 @@
 				/>
 
 				<div>
-					<a href="##" class="ml-auto text-sm text-gray-500">パスワードを忘れた場合</a>
+					<a href="##" class="ml-auto cursor-pointer text-sm text-gray-500"
+						>パスワードを忘れた場合</a
+					>
 				</div>
 
 				<div class="flex items-center justify-between">
-					<Button type="submit" class="w-full bg-blue-500 hover:bg-blue-600">ログイン</Button>
+					<Button type="submit" class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600"
+						>ログイン</Button
+					>
 				</div>
 			</form>
 		</Card.Content>
@@ -74,7 +78,7 @@
 
 	<div class="w-full max-w-sm px-6 pt-4">
 		<a href="/signup">
-			<Button variant="outline" class="w-full text-gray-600">新規登録</Button>
+			<Button variant="outline" class="w-full cursor-pointer text-gray-600">新規登録</Button>
 		</a>
 	</div>
 </div>

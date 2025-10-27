@@ -1,6 +1,8 @@
 <script lang="ts">
 	import SignupForm from '$lib/components/SignupForm.svelte';
 	import { ChevronLeft } from 'lucide-svelte';
+
+	export let pageTitle = 'アカウント作成';
 </script>
 
 <div class="flex w-full items-center justify-center">
@@ -17,7 +19,7 @@
 			</a>
 		</div>
 		<!-- タイトル -->
-		<h1 class="mb-6 ml-8 self-start text-xl">アカウント作成</h1>
+		<div class="mb-6 ml-8 self-start text-xl">{pageTitle}</div>
 		<!-- フォームパネル -->
 		<div class="flex w-full max-w-sm flex-col gap-6">
 			<SignupForm />

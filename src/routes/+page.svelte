@@ -1,17 +1,12 @@
 <script lang="ts">
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import Calendar from '$lib/components/SelectCalendar.svelte';
-	import CalendarIcon from 'lucide-svelte/icons/calendar-search';
-	import ProductCard from '$lib/components/ProductCard.svelte';
+	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
+	import ProductCard from '$lib/components/panel/ProductCard.svelte';
 
 	// サンプル画像パス
 	import Kaki1 from '$lib/images/sample/kaki1.png';
 	import Kaki2 from '$lib/images/sample/kaki2.jpeg';
 	import Kaki3 from '$lib/images/sample/kaki3.jpg';
 	import muki1 from '$lib/images/sample/muki1.jpg';
-
-	let openCalendar = $state(false);
 
 	// サンプル商品データ
 	const products = [
@@ -49,24 +44,7 @@
 	<div class="w-full max-w-screen-2xl px-8">
 		<!-- カレンダー -->
 		<div class="mb-4 flex w-full justify-end">
-			<div class="flex items-center gap-2">
-				<Popover.Root bind:open={openCalendar}>
-					<Popover.Trigger>
-						{#snippet child({ props })}
-							<Button {...props} variant="ghost" class="!p-0">
-								<CalendarIcon class="!h-7 !w-7 text-gray-600" />
-							</Button>
-						{/snippet}
-					</Popover.Trigger>
-					<Popover.Content class="w-auto overflow-hidden p-0">
-						<Calendar />
-					</Popover.Content>
-				</Popover.Root>
-				<div class="flex flex-col gap-0.5">
-					<div class="text-sm leading-none text-gray-600">出荷カレンダー</div>
-					<div class="text-sm leading-none text-red-500">赤印の日は出荷不可</div>
-				</div>
-			</div>
+			<SelectCalendar />
 		</div>
 
 		<!-- 商品パネル -->

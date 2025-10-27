@@ -11,16 +11,17 @@
 		value = $bindable(),
 		placeholder = $bindable(),
 		class: className,
-		weekdayFormat = 'short',
+		weekdayFormat = 'long',
 		buttonVariant = 'ghost',
 		captionLayout = 'label',
-		locale = 'en-US',
+		locale = 'ja-JP',
 		months: monthsProp,
 		years,
 		monthFormat: monthFormatProp,
 		yearFormat = 'numeric',
 		day,
 		disableDaysOutsideMonth = false,
+		weekStartsOn = 1,
 		...restProps
 	}: WithoutChildrenOrChild<CalendarPrimitive.RootProps> & {
 		buttonVariant?: ButtonVariant;
@@ -30,6 +31,7 @@
 		monthFormat?: CalendarPrimitive.MonthSelectProps['monthFormat'];
 		yearFormat?: CalendarPrimitive.YearSelectProps['yearFormat'];
 		day?: Snippet<[{ day: DateValue; outsideMonth: boolean }]>;
+		weekStartsOn?: CalendarPrimitive.RootProps['weekStartsOn'];
 	} = $props();
 
 	const monthFormat = $derived.by(() => {
@@ -61,6 +63,7 @@
 	{monthFormat}
 	{yearFormat}
 	{...restProps}
+	{weekStartsOn}
 	{isDateDisabled}
 >
 	{#snippet children({ months, weekdays })}
@@ -89,7 +92,7 @@
 							<Calendar.GridRow class="select-none">
 								{#each weekdays as weekday (weekday)}
 									<Calendar.HeadCell>
-										{weekday.slice(0, 2)}
+										{weekday.slice(0, 1)}
 									</Calendar.HeadCell>
 								{/each}
 							</Calendar.GridRow>

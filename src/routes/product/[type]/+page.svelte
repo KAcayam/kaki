@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { ChevronLeft } from 'lucide-svelte';
-	import ProductImageGallery from '$lib/components/detail/ProductImageGallery.svelte';
-	import ProductPurchasePanel from '$lib/components/detail/ProductPurchasePanel.svelte';
+	import ProductImageGallery from '$lib/components/panel/ProductImageGallery.svelte';
+	import ProductPurchase from '$lib/components/panel/ProductPurchase.svelte';
 
 	// サンプル画像パス
 	import kaki1 from '$lib/images/sample/kaki1.png';
@@ -10,6 +10,8 @@
 	import kaki3 from '$lib/images/sample/kaki3.jpg';
 	import muki1 from '$lib/images/sample/muki1.jpg';
 	import muki2 from '$lib/images/sample/muki2.jpg';
+
+	export const pageTitle = '商品詳細';
 
 	// 運用時はこの表示切り替えロジックも変更
 	const productType: 'withShell' | 'noShell' | 'noImage' =
@@ -72,12 +74,12 @@
 		</div>
 
 		<div class="mb-6 ml-8 flex flex-row items-center gap-8">
-			<div class="text-2xl">{productData.name}</div>
+			<div class="text-xl">{productData.name}</div>
 		</div>
 
 		<div class="mx-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
 			<!-- LEFT/画像・注釈カラム -->
-			<div>
+			<div class="rounded-lg border border-gray-200 p-4">
 				<ProductImageGallery images={productData.images} />
 				<div class="mt-2 text-sm text-muted-foreground">
 					<p>{productData.description}</p>
@@ -86,7 +88,9 @@
 			</div>
 
 			<!-- RIGHT/商品情報カラム -->
-			<ProductPurchasePanel product={productForPurchasePanel} {productType} />
+			<div>
+				<ProductPurchase product={productForPurchasePanel} {productType} />
+			</div>
 		</div>
 	</div>
 </div>
