@@ -9,6 +9,7 @@
 	import { getLocalTimeZone, today, type CalendarDate } from '@internationalized/date';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
+	import Separator from '../ui/separator/separator.svelte';
 
 	// 親コンポーネントからカートアイテムを受け取る
 	type CartItem = {
@@ -64,7 +65,7 @@
 		</div>
 	</div>
 
-	<div class="py-6">
+	<div class="pt-6">
 		<div class="flex items-center justify-between">
 			<div class="flex flex-row items-baseline gap-3">
 				<div class="text-lg">合計</div>
@@ -74,8 +75,10 @@
 		</div>
 	</div>
 
+	<Separator class="my-4" />
+
 	<!-- 配送希望日時 -->
-	<div class="mb-6 border-t border-gray-200 pt-4">
+	<div class="mb-6">
 		<SelectCalendar />
 	</div>
 

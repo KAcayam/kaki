@@ -29,7 +29,7 @@
 		<a href="/customer-information/guest" class="w-full">
 			<Button class="w-full cursor-pointer text-gray-600" variant="outline">ゲスト購入</Button>
 		</a>
-		<a href="/customer-information/register" class="w-full">
+		<a href="/customer-information/signup" class="w-full">
 			<Button class="w-full cursor-pointer text-gray-600" variant="outline">新規登録</Button>
 		</a>
 	</div>

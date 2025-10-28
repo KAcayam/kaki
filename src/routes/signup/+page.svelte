@@ -2,7 +2,7 @@
 	import SignupForm from '$lib/components/SignupForm.svelte';
 	import { ChevronLeft } from 'lucide-svelte';
 
-	export let pageTitle = 'アカウント作成';
+	export let pageTitle = 'アカウント新規作成';
 </script>
 
 <div class="flex w-full items-center justify-center">
@@ -22,7 +22,7 @@
 		<div class="mb-6 ml-8 self-start text-xl">{pageTitle}</div>
 		<!-- フォームパネル -->
 		<div class="flex w-full max-w-sm flex-col gap-6">
-			<SignupForm />
+			<SignupForm cancelLink="/" />
 		</div>
 	</div>
 </div>

@@ -2,6 +2,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Select from '$lib/components/ui/select';
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
+	import AddtoCartModal from '$lib/components/panel/AddtoCart.svelte';
 
 	interface Product {
 		price: number;
@@ -42,6 +43,34 @@
 				? 'パック'
 				: undefined
 	);
+
+	// モーダルの表示状態を管理するステート
+	let showAddedToCartModal = $state(false);
+
+	// カートに追加する処理（実際にはAPIコールなどを行う）
+	function handleAddToCart() {
+		// ここでカートに商品を追加するロジックを実装します
+
+		// 処理が完了したらモーダルを表示
+		showAddedToCartModal = true;
+	}
+
+	// モーダルから「支払いへ進む」コールバックを受け取った時のハンドラ
+	function handleProceedToCheckoutCallback() {
+		console.log('支払いへ進むコールバックが呼ばれました (子コンポーネントが遷移します)');
+		showAddedToCartModal = false;
+	}
+
+	// モーダルから「買い物を続ける」コールバックを受け取った時のハンドラ
+	function handleContinueShoppingCallback() {
+		console.log('買い物を続けるコールバックが呼ばれました (子コンポーネントが遷移します)');
+		showAddedToCartModal = false;
+	}
+
+	// モーダル自身の閉じる操作
+	function handleModalOpenChangeCallback(newOpen: boolean) {
+		showAddedToCartModal = newOpen;
+	}
 </script>
 
 <div class="flex flex-col">
@@ -94,9 +123,21 @@
 		</div>
 
 		<div>
-			<Button type="submit" class="w-72 cursor-pointer bg-blue-500 hover:bg-blue-600"
-				>カートに入れる</Button
+			<Button
+				type="button"
+				class="w-72 cursor-pointer bg-blue-500 hover:bg-blue-600"
+				onclick={handleAddToCart}
 			>
+				カートに入れる
+			</Button>
 		</div>
+
+		<!-- モーダル -->
+		<AddtoCartModal
+			open={showAddedToCartModal}
+			onProceedToCheckout={handleProceedToCheckoutCallback}
+			onContinueShopping={handleContinueShoppingCallback}
+			onOpenChange={handleModalOpenChangeCallback}
+		/>
 	</div>
 </div>

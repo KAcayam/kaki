@@ -41,7 +41,7 @@
 			<Stepper currentStepIndex={currentStepperIndex} />
 		</div>
 
-		<div class="mb-6 ml-8 flex flex-row items-center gap-8">
+		<div class="mb-2 ml-8 flex flex-row items-center gap-8">
 			<div class="text-xl">{pageTitle}</div>
 		</div>
 

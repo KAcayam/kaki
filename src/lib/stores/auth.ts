@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 // ログイン状態を管理するストア
 // 実際は()のところ、仮で(true)とする
-export const isLoggedIn = writable(false);
+export const isLoggedIn = writable(true);
 
 // ユーザー名を管理するストア
 // 実際は()のところ、仮で('田中太郎')とする

@@ -1,18 +1,13 @@
 <script lang="ts">
 	import FormInput from '$lib/components/form-base/FormInput.svelte';
-	import FormPassword from '$lib/components/form-base/FormPassword.svelte';
 	import SelectPrefecture from '$lib/components/form-base/SelectPrefecture.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { FieldSeparator } from '$lib/components/ui/field/index.js';
-	import { signupSchema } from '$lib/schemas/auth';
+	import { guestSchema } from '$lib/schemas/auth';
 	import { goto } from '$app/navigation';
 
 	// フォームのデータバインディング用
 	// すべての変数を $state でリアクティブにする
-	let email = $state('');
-	let password = $state('');
-	let passwordConfirm = $state('');
 	let lastName = $state('');
 	let firstName = $state('');
 	let lastNameKana = $state('');
@@ -22,12 +17,10 @@
 	let address1 = $state('');
 	let address2 = $state('');
 	let phoneNumber = $state('');
+	let email = $state('');
 	let receiveCampaignEmails = $state(true); // boolean型も$stateで管理
 
 	// エラーメッセージ
-	let emailError = $state<string | null>(null);
-	let passwordError = $state<string | null>(null);
-	let passwordConfirmError = $state<string | null>(null);
 	let lastNameError = $state<string | null>(null);
 	let firstNameError = $state<string | null>(null);
 	let lastNameKanaError = $state<string | null>(null);
@@ -37,13 +30,11 @@
 	let address1Error = $state<string | null>(null);
 	let address2Error = $state<string | null>(null);
 	let phoneNumberError = $state<string | null>(null);
+	let emailError = $state<string | null>(null);
 
 	function onsubmit(e: SubmitEvent) {
 		e.preventDefault();
 
-		emailError = null;
-		passwordError = null;
-		passwordConfirmError = null;
 		lastNameError = null;
 		firstNameError = null;
 		lastNameKanaError = null;
@@ -53,11 +44,9 @@
 		address1Error = null;
 		address2Error = null;
 		phoneNumberError = null;
+		emailError = null;
 
-		const result = signupSchema.safeParse({
-			email,
-			password,
-			passwordConfirm,
+		const result = guestSchema.safeParse({
 			lastName,
 			firstName,
 			lastNameKana,
@@ -66,7 +55,8 @@
 			prefecture,
 			address1,
 			address2,
-			phoneNumber
+			phoneNumber,
+			email
 		});
 
 		if (!result.success) {
@@ -74,15 +64,6 @@
 				const path = issue.path[0];
 				const message = issue.message;
 				switch (path) {
-					case 'email':
-						emailError = message;
-						break;
-					case 'password':
-						passwordError = message;
-						break;
-					case 'passwordConfirm':
-						passwordConfirmError = message;
-						break;
 					case 'lastName':
 						lastNameError = message;
 						break;
@@ -110,6 +91,9 @@
 					case 'phoneNumber':
 						phoneNumberError = message;
 						break;
+					case 'email':
+						emailError = message;
+						break;
 				}
 			});
 			return;
@@ -126,39 +110,9 @@
 	<Card.Root class="w-full max-w-3xl">
 		<Card.Content>
 			<form class="flex flex-col gap-6" {onsubmit} novalidate>
-				<FormInput
-					id="signup-email"
-					label="メールアドレス"
-					type="email"
-					placeholder="メールアドレス"
-					bind:value={email}
-					error={emailError}
-					required={true}
-				/>
-
-				<FormPassword
-					id="signup-password"
-					label="パスワード"
-					placeholder="半角英数字で8文字以上"
-					bind:value={password}
-					error={passwordError}
-					required={true}
-				/>
-
-				<FormPassword
-					id="signup-password-confirm"
-					label="パスワード(確認)"
-					placeholder="確認のためもう一度入力してください"
-					bind:value={passwordConfirm}
-					error={passwordConfirmError}
-					required={true}
-				/>
-
-				<FieldSeparator />
-
 				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 					<FormInput
-						id="signup-last-name"
+						id="guest-last-name"
 						label="姓"
 						type="text"
 						placeholder="名前(姓)"
@@ -167,7 +121,7 @@
 						required={true}
 					/>
 					<FormInput
-						id="signup-first-name"
+						id="guest-first-name"
 						label="名"
 						type="text"
 						placeholder="名前(名)"
@@ -179,7 +133,7 @@
 
 				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 					<FormInput
-						id="signup-last-name-kana"
+						id="guest-last-name-kana"
 						label="姓(カナ)"
 						type="text"
 						placeholder="ナマエ(姓)"
@@ -188,7 +142,7 @@
 						required={true}
 					/>
 					<FormInput
-						id="signup-first-name-kana"
+						id="guest-first-name-kana"
 						label="名(カナ)"
 						type="text"
 						placeholder="ナマエ(名)"
@@ -199,7 +153,7 @@
 				</div>
 
 				<FormInput
-					id="signup-postal-code"
+					id="guest-postal-code"
 					label="郵便番号"
 					type="text"
 					placeholder="ハイフンなし"
@@ -210,7 +164,7 @@
 
 				<!-- 都道府県 -->
 				<SelectPrefecture
-					id="signup-prefecture"
+					id="guest-prefecture"
 					label="都道府県"
 					bind:value={prefecture}
 					error={prefectureError}
@@ -218,7 +172,7 @@
 				/>
 
 				<FormInput
-					id="signup-address1"
+					id="guest-address1"
 					label="住所１"
 					type="text"
 					placeholder="市区町村・番地"
@@ -228,7 +182,7 @@
 				/>
 
 				<FormInput
-					id="signup-address2"
+					id="guest-address2"
 					label="住所２"
 					type="text"
 					placeholder="建物名・部屋番号はこちら"
@@ -237,12 +191,22 @@
 				/>
 
 				<FormInput
-					id="signup-phone-number"
+					id="guest-phone-number"
 					label="電話番号"
 					type="text"
 					placeholder="ハイフンなし"
 					bind:value={phoneNumber}
 					error={phoneNumberError}
+					required={true}
+				/>
+
+				<FormInput
+					id="guest-email"
+					label="メールアドレス"
+					type="email"
+					placeholder="メールアドレス"
+					bind:value={email}
+					error={emailError}
 					required={true}
 				/>
 
@@ -261,7 +225,7 @@
 						type="submit"
 						class="w-full cursor-pointer bg-blue-500 font-bold text-white hover:bg-blue-600"
 					>
-						登録
+						次に進む
 					</Button>
 					<Button
 						type="button"

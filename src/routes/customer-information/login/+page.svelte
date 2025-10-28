@@ -1,8 +1,8 @@
-<!-- src/routes/customer-information/login/+page.svelte -->
 <script lang="ts">
 	import LoginForm from '$lib/components/LoginForm.svelte';
 </script>
 
-<div class="mx-auto mt-6 w-full max-w-sm p-4">
-	<LoginForm />
+<div class="mx-auto w-full max-w-sm px-4">
+	<div class="mb-2 text-gray-500">ログインv</div>
+	<LoginForm signupLink="/customer-information/signup" />
 </div>

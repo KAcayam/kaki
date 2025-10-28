@@ -5,17 +5,22 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { FieldSeparator } from '$lib/components/ui/field/index.js';
 	import { loginSchema } from '$lib/schemas/auth';
+	import { goto } from '$app/navigation';
 
-	let email = '';
-	let password = '';
+	// $state ルーンを使ってリアクティブな状態として宣言する
+	let email = $state('');
+	let password = $state('');
 
-	let emailError: string | null = null;
-	let passwordError: string | null = null;
+	let emailError = $state<string | null>(null);
+	let passwordError = $state<string | null>(null);
+
+	let { signupLink = '/signup' } = $props<{ signupLink?: string }>();
 
 	function onSubmit(e: SubmitEvent) {
 		e.preventDefault();
 		// zodでバリデーション
 		const result = loginSchema.safeParse({ email, password });
+
 		emailError = null;
 		passwordError = null;
 
@@ -29,6 +34,8 @@
 		// バリデーションが成功した場合
 		const validatedData = result.data;
 		// ここでAPIに送信するなどの処理を行う
+		// 例: ログイン成功後にホーム画面に遷移
+		// goto('/');
 	}
 </script>
 
@@ -77,8 +84,10 @@
 	</Card.Root>
 
 	<div class="w-full max-w-sm px-6 pt-4">
-		<a href="/signup">
-			<Button variant="outline" class="w-full cursor-pointer text-gray-600">新規登録</Button>
-		</a>
+		<Button
+			variant="outline"
+			onclick={() => goto(signupLink)}
+			class="w-full cursor-pointer text-gray-600">新規登録</Button
+		>
 	</div>
 </div>

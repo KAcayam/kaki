@@ -22,7 +22,7 @@
 		<h1 class="mb-6 ml-8 self-start text-xl">{pageTitle}</h1>
 		<!-- フォームパネル -->
 		<div class="flex w-full max-w-sm flex-col gap-6">
-			<LoginForm />
+			<LoginForm signupLink="/signup" />
 		</div>
 	</div>
 </div>
