@@ -27,13 +27,12 @@
 <div class="flex w-full items-center justify-center">
 	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
 		<div class="mb-4 ml-8 self-start">
-			<a href="/cart">
-				<button
-					class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
-				>
-					<ChevronLeft class="h-4 w-4 text-gray-600" />
-					<span class="text-sm">カートに戻る</span>
-				</button>
+			<a
+				href="/cart"
+				class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
+			>
+				<ChevronLeft class="h-4 w-4 text-gray-600" />
+				<span class="text-sm">カートに戻る</span>
 			</a>
 		</div>
 

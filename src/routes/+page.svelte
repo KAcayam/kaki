@@ -1,29 +1,20 @@
 <script lang="ts">
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
 	import ProductCard from '$lib/components/panel/ProductCard.svelte';
+	import data from '$lib/data.json'; // data.jsonをインポート
 
-	// サンプル画像パス
-	import Kaki1 from '$lib/images/sample/kaki1.png';
-	import Kaki2 from '$lib/images/sample/kaki2.jpeg';
-	import Kaki3 from '$lib/images/sample/kaki3.jpg';
-	import muki1 from '$lib/images/sample/muki1.jpg';
+	// JSONのproducts配列に合わせた型定義
+	interface Product {
+		id: string;
+		name: string;
+		price: number;
+		image: string | null; // 画像パスは文字列またはnull
+		type: string;
+		isLoggedInRequired?: boolean;
+	}
 
-	// サンプル商品データ
-	const products = [
-		{ id: 'oyster-001', name: '殻付き生牡蠣', price: 4800, image: Kaki1, type: 'with-shell' },
-		{ id: 'oyster-002', name: '特選殻付き生牡蠣', price: 5200, image: Kaki2, type: 'with-shell' },
-		{ id: 'oyster-003', name: '隠岐産殻付き生牡蠣', price: 7900, image: Kaki3, type: 'with-shell' },
-		{ id: 'oyster-004', name: '画像なし商品サンプル', price: 3500, type: 'no-image' },
-		{
-			id: 'oyster-005',
-			name: 'むき身 ページサンプル',
-			price: 2800,
-			image: muki1,
-			type: 'no-shell'
-		},
-		{ id: 'oyster-006', name: 'ログイン必須商品A', isLoggedInRequired: true },
-		{ id: 'oyster-007', name: 'ログイン必須商品B', isLoggedInRequired: true }
-	];
+	// data.jsonから商品データを取得
+	const products: Product[] = data.products;
 </script>
 
 <main class="flex w-full flex-col items-center">

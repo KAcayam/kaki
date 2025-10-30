@@ -1,98 +1,52 @@
 <script lang="ts">
+	import AccountData from '$lib/components/panel/AccountData.svelte';
 	import { Button } from '$lib/components/ui/button';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import AccountEdit from '$lib/components/panel/AccountEdit.svelte';
+	import data from '$lib/data.json';
 
-	const user = {
-		fullName: '田中太郎',
-		fullNameKana: 'タナカタロウ',
-		postal: '1010034',
-		prefecture: '東京都',
-		address1: '中央区銀座1-1-1',
-		address2: 'パーク銀座101',
-		phone: '05022334455',
-		email: 'kaki@oystar.kaki',
-		receiveCampaign: true
-	};
+	// ログイン状態でメインアカウントは必ずあるので !　をつけて型エラーを回避
+	let user = $state(data.user.find((u) => u.isPrimary)!);
+
+	let showEditModal = $state(false);
+
+	function handleSave(updatedAccount: any) {
+		Object.assign(user, updatedAccount);
+		showEditModal = false;
+	}
 </script>
 
-<svelte:head>
-	<title>アカウント情報 - 新鮮な牡蠣販売所</title>
-</svelte:head>
+<div class="flex w-full items-center justify-center">
+	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
+		<div class="mb-6 ml-8 flex flex-row items-center gap-8">
+			<div class="text-xl">アカウント情報</div>
+		</div>
 
-<main class="container mx-auto px-4 py-8">
-	<h1 class="mb-8 text-2xl font-medium">アカウント情報</h1>
+		<AccountData {user} />
 
-	<div class="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-2">
-		<!-- 左カラム: 詳細リスト -->
-		<section>
-			<div class="mb-4">
-				<div class="text-sm text-gray-600">姓名</div>
-				<div class="text-lg font-medium">{user.fullName}</div>
-			</div>
-
-			<div class="mb-4">
-				<div class="text-sm text-gray-600">姓名(カナ)</div>
-				<div class="text-lg font-medium">{user.fullNameKana}</div>
-			</div>
-
-			<div class="mb-4">
-				<div class="text-sm text-gray-600">郵便番号</div>
-				<div class="text-lg font-medium">{user.postal}</div>
-			</div>
-
-			<div class="mb-4">
-				<div class="text-sm text-gray-600">都道府県</div>
-				<div class="text-lg font-medium">{user.prefecture}</div>
-			</div>
-
-			<div class="mb-4">
-				<div class="text-sm text-gray-600">住所１</div>
-				<div class="text-lg font-medium">{user.address1}</div>
-			</div>
-
-			<div class="mb-4">
-				<div class="text-sm text-gray-600">住所２</div>
-				<div class="text-lg font-medium">{user.address2}</div>
-			</div>
-
-			<div class="mb-4">
-				<div class="text-sm text-gray-600">電話番号</div>
-				<div class="text-lg font-medium">{user.phone}</div>
-			</div>
-
-			<div class="mb-6">
-				<div class="text-sm text-gray-600">メールアドレス</div>
-				<div class="text-lg font-medium">{user.email}</div>
-			</div>
-
-			<div class="mb-8 text-sm text-gray-700">キャンペーンメールを受信する</div>
-
-			<div class="flex max-w-md flex-col gap-3">
-				<Button variant="outline" class="w-full">アカウント情報編集</Button>
-				<Button variant="outline" class="w-full">パスワード変更</Button>
-			</div>
-		</section>
-
-		<!-- 右カラム: 名前など上部の簡略表示（Figma と見た目合わせ） -->
-		<aside class="pt-2">
-			<div class="mb-6">
-				<div class="text-sm text-gray-600">姓</div>
-				<div class="text-lg font-medium">{user.fullName}</div>
-			</div>
-
-			<div class="mb-6">
-				<div class="text-sm text-gray-600">名</div>
-				<div class="text-lg font-medium">{user.fullName}</div>
-			</div>
-
-			<div class="mb-6">
-				<div class="text-sm text-gray-600">姓(カナ)</div>
-				<div class="text-lg font-medium">{user.fullNameKana}</div>
-			</div>
-
-			<div class="mb-6">
-				<div class="text-sm text-gray-600">名(カナ)</div>
-				<div class="text-lg font-medium">{user.fullNameKana}</div>
-			</div>
-		</aside>
+		<div class="mx-auto flex w-72 flex-col gap-3 pt-4">
+			<Button
+				class="w-full cursor-pointer text-gray-600"
+				variant="outline"
+				onclick={() => (showEditModal = true)}>アカウント情報編集</Button
+			>
+			<Button class="w-full cursor-pointer text-gray-600" variant="outline">パスワード変更</Button>
+		</div>
 	</div>
-</main>
+</div>
+
+<!-- アカウント編集モーダル -->
+<Dialog.Root bind:open={showEditModal}>
+	<Dialog.Content
+		class="w-auto max-w-md"
+		onOpenAutoFocus={(e) => {
+			e.preventDefault();
+		}}
+	>
+		<AccountEdit
+			editingAccount={user}
+			onSave={handleSave}
+			onCancel={() => (showEditModal = false)}
+		/>
+	</Dialog.Content>
+</Dialog.Root>

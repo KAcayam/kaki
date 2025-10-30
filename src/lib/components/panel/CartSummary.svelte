@@ -10,22 +10,23 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
 	import Separator from '../ui/separator/separator.svelte';
+	import { goto } from '$app/navigation';
 
 	// 親コンポーネントからカートアイテムを受け取る
 	type CartItem = {
 		id: string;
 		title: string;
-		variant: 'kg' | '個' | 'パック';
+		variant: string; // <-- ここを修正: 'kg' | '個' | 'パック' ではなく string に変更
 		price: number;
 		quantity: number;
-		img: string;
+		img: string | null; // <-- ここを修正: null も許容
 	};
 
 	let { items }: { items: CartItem[] } = $props();
 
 	// 計算プロパティ
 	const subtotal = $derived(items.reduce((sum, item) => sum + item.price * item.quantity, 0));
-	const total = $derived(subtotal); // 送料未計算のため、現時点では小計と同じ
+	const total = $derived(subtotal);
 
 	// 配送希望日時
 	let deliveryOption: 'none' | 'specific' = $state('none');
@@ -45,9 +46,16 @@
 	// ギフト用チェックボックス
 	let isGift: boolean = $state(false);
 
-	// Date Picker用のID（バースデーピッカーの例から流用）
 	const datePickerId = 'delivery-date-picker';
 	let datePickerOpen = $state(false);
+
+	function handleProceedToNext() {
+		goto('/cart/customer-information');
+	}
+
+	function handleContinueShopping() {
+		goto('/');
+	}
 </script>
 
 <div class="h-fit w-96 rounded-lg border border-gray-200 p-6">
@@ -166,13 +174,14 @@
 	</div>
 
 	<div class="flex flex-col gap-3">
-		<a href="/customer-information">
-			<Button class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600">次に進む</Button>
-		</a>
-		<a href="/">
-			<Button class="w-full cursor-pointer text-gray-600 hover:text-gray-700" variant="outline"
-				>買い物を続ける</Button
-			>
-		</a>
+		<Button
+			class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600"
+			onclick={handleProceedToNext}>次に進む</Button
+		>
+		<Button
+			class="w-full cursor-pointer text-gray-600 hover:text-gray-700"
+			variant="outline"
+			onclick={handleContinueShopping}>買い物を続ける</Button
+		>
 	</div>
 </div>

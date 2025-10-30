@@ -5,7 +5,7 @@
 	export let id: string;
 	export let label: string = '都道府県';
 	export let error: string | null = null;
-	export let value: string = ''; // 選択された都道府県のvalue (例: 'tokyo')
+	export let value: string = ''; // 選択された都道府県のvalue (例: '東京都')
 	export let required: boolean = false;
 
 	// 都道府県リスト
@@ -60,12 +60,12 @@
 	];
 
 	// 都道府県Trigger 表示
-	$: prefectureTrigger = prefectures.find((p) => p.value === value)?.label ?? '選択してください';
+	$: prefectureTrigger = value || '選択してください';
 </script>
 
 <div class="relative flex w-full max-w-sm flex-col gap-1.5">
 	{#if label}
-		<Label for={id}>
+		<Label for={id} class="text-gray-600">
 			{label}{#if required}
 				<span class="text-red-500">*</span>
 			{/if}
@@ -79,7 +79,7 @@
 			<Select.Group>
 				<Select.Label>都道府県</Select.Label>
 				{#each prefectures as p (p.value)}
-					<Select.Item value={p.value} label={p.label}>
+					<Select.Item value={p.label} label={p.label}>
 						{p.label}
 					</Select.Item>
 				{/each}

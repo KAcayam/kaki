@@ -9,13 +9,12 @@
 	<div class="flex w-full max-w-screen-2xl flex-col items-center justify-center pt-6">
 		<!-- 戻るボタン -->
 		<div class="mb-4 ml-8 self-start">
-			<a href="/">
-				<button
-					class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
-				>
-					<ChevronLeft class="h-4 w-4 text-gray-600" />
-					<span class="text-sm">TOPに戻る</span>
-				</button>
+			<a
+				href="/"
+				class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
+			>
+				<ChevronLeft class="h-4 w-4 text-gray-600" />
+				<span class="text-sm">TOPに戻る</span>
 			</a>
 		</div>
 		<!-- タイトル -->

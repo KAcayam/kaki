@@ -3,60 +3,102 @@
 	import SelectPrefecture from '$lib/components/form-base/SelectPrefecture.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { guestSchema } from '$lib/schemas/auth';
-	import { goto } from '$app/navigation';
+	import { addressSchema } from '$lib/schemas/auth';
 
-	// フォームのデータバインディング用
-	// すべての変数を $state でリアクティブにする
-	let lastName = $state('');
-	let firstName = $state('');
-	let lastNameKana = $state('');
-	let firstNameKana = $state('');
-	let postalCode = $state('');
-	let prefecture = $state('');
-	let address1 = $state('');
-	let address2 = $state('');
-	let phoneNumber = $state('');
-	let email = $state('');
-	let receiveCampaignEmails = $state(true); // boolean型も$stateで管理
+	// JSON user に合わせた型
+	type User = {
+		id: string;
+		isPrimary?: boolean;
+		lastName: string;
+		firstName: string;
+		lastNameKana: string;
+		firstNameKana: string;
+		email?: string;
+		postalCode: string;
+		prefecture: string;
+		address1: string;
+		address2: string;
+		phone: string;
+		receiveCampaignEmails: boolean;
+	};
+	type UserFormData = Omit<User, 'id' | 'isPrimary'> & { id: string | null };
 
-	// エラーメッセージ
+	let {
+		editingUser = null,
+		onSave = (_updatedUser: UserFormData) => {},
+		onCancel = () => {}
+	} = $props<{
+		editingUser?: User | null;
+		onSave?: (updatedUser: UserFormData) => void;
+		onCancel?: () => void;
+	}>();
+
+	// フォームの状態
+	let lastName = $state(editingUser?.lastName || '');
+	let firstName = $state(editingUser?.firstName || '');
+	let postalCode = $state(editingUser?.postalCode || '');
+	let prefecture = $state(editingUser?.prefecture || '');
+	let address1 = $state(editingUser?.address1 || '');
+	let address2 = $state(editingUser?.address2 || '');
+	let phoneNumber = $state(editingUser?.phone || '');
+
 	let lastNameError = $state<string | null>(null);
 	let firstNameError = $state<string | null>(null);
-	let lastNameKanaError = $state<string | null>(null);
-	let firstNameKanaError = $state<string | null>(null);
 	let postalCodeError = $state<string | null>(null);
 	let prefectureError = $state<string | null>(null);
 	let address1Error = $state<string | null>(null);
 	let address2Error = $state<string | null>(null);
 	let phoneNumberError = $state<string | null>(null);
-	let emailError = $state<string | null>(null);
 
-	function onsubmit(e: SubmitEvent) {
-		e.preventDefault();
+	// editingUser が変わったらフォームを更新
+	$effect(() => {
+		if (editingUser) {
+			lastName = editingUser.lastName;
+			firstName = editingUser.firstName;
+			postalCode = editingUser.postalCode;
+			prefecture = editingUser.prefecture;
+			address1 = editingUser.address1;
+			address2 = editingUser.address2;
+			phoneNumber = editingUser.phone;
+		} else {
+			lastName = '';
+			firstName = '';
+			postalCode = '';
+			prefecture = '';
+			address1 = '';
+			address2 = '';
+			phoneNumber = '';
+		}
 
 		lastNameError = null;
 		firstNameError = null;
-		lastNameKanaError = null;
-		firstNameKanaError = null;
 		postalCodeError = null;
 		prefectureError = null;
 		address1Error = null;
 		address2Error = null;
 		phoneNumberError = null;
-		emailError = null;
+	});
 
-		const result = guestSchema.safeParse({
+	function onsubmitForm(e: SubmitEvent) {
+		e.preventDefault();
+
+		// エラーリセット
+		lastNameError = null;
+		firstNameError = null;
+		postalCodeError = null;
+		prefectureError = null;
+		address1Error = null;
+		address2Error = null;
+		phoneNumberError = null;
+
+		const result = addressSchema.safeParse({
 			lastName,
 			firstName,
-			lastNameKana,
-			firstNameKana,
 			postalCode,
 			prefecture,
 			address1,
 			address2,
-			phoneNumber,
-			email
+			phoneNumber
 		});
 
 		if (!result.success) {
@@ -69,12 +111,6 @@
 						break;
 					case 'firstName':
 						firstNameError = message;
-						break;
-					case 'lastNameKana':
-						lastNameKanaError = message;
-						break;
-					case 'firstNameKana':
-						firstNameKanaError = message;
 						break;
 					case 'postalCode':
 						postalCodeError = message;
@@ -91,26 +127,39 @@
 					case 'phoneNumber':
 						phoneNumberError = message;
 						break;
-					case 'email':
-						emailError = message;
-						break;
 				}
 			});
 			return;
 		}
 
-		console.log('--- 登録データ ---', result.data);
-		alert('登録処理が実行されました（実際にはAPI通信などを行います）');
+		// 成功時に親に渡す
+		onSave({
+			id: editingUser?.id || null,
+			lastName,
+			firstName,
+			postalCode,
+			prefecture,
+			address1,
+			address2,
+			phone: phoneNumber
+		});
 	}
 
-	let { cancelLink = '/' } = $props<{ cancelLink?: string }>();
+	function handleCancel() {
+		onCancel();
+	}
 </script>
 
 <div class="flex flex-col items-center gap-4">
-	<Card.Root class="w-full max-w-3xl">
+	<Card.Root class="w-full max-w-md border-0 shadow-none">
+		<Card.Header>
+			<Card.Title class="text-gray-600">
+				{editingUser ? '配送先を編集' : '新しい配送先'}
+			</Card.Title>
+		</Card.Header>
 		<Card.Content>
-			<form class="flex flex-col gap-6" {onsubmit} novalidate>
-				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+			<form class="flex flex-col gap-6" onsubmit={onsubmitForm} novalidate>
+				<div class="grid grid-cols-2 gap-4">
 					<FormInput
 						id="guest-last-name"
 						label="姓"
@@ -118,7 +167,6 @@
 						placeholder="名前(姓)"
 						bind:value={lastName}
 						error={lastNameError}
-						required={true}
 					/>
 					<FormInput
 						id="guest-first-name"
@@ -127,28 +175,6 @@
 						placeholder="名前(名)"
 						bind:value={firstName}
 						error={firstNameError}
-						required={true}
-					/>
-				</div>
-
-				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-					<FormInput
-						id="guest-last-name-kana"
-						label="姓(カナ)"
-						type="text"
-						placeholder="ナマエ(姓)"
-						bind:value={lastNameKana}
-						error={lastNameKanaError}
-						required={true}
-					/>
-					<FormInput
-						id="guest-first-name-kana"
-						label="名(カナ)"
-						type="text"
-						placeholder="ナマエ(名)"
-						bind:value={firstNameKana}
-						error={firstNameKanaError}
-						required={true}
 					/>
 				</div>
 
@@ -159,16 +185,13 @@
 					placeholder="ハイフンなし"
 					bind:value={postalCode}
 					error={postalCodeError}
-					required={true}
 				/>
 
-				<!-- 都道府県 -->
 				<SelectPrefecture
 					id="guest-prefecture"
 					label="都道府県"
 					bind:value={prefecture}
 					error={prefectureError}
-					required={true}
 				/>
 
 				<FormInput
@@ -178,7 +201,6 @@
 					placeholder="市区町村・番地"
 					bind:value={address1}
 					error={address1Error}
-					required={true}
 				/>
 
 				<FormInput
@@ -197,44 +219,18 @@
 					placeholder="ハイフンなし"
 					bind:value={phoneNumber}
 					error={phoneNumberError}
-					required={true}
 				/>
 
-				<FormInput
-					id="guest-email"
-					label="メールアドレス"
-					type="email"
-					placeholder="メールアドレス"
-					bind:value={email}
-					error={emailError}
-					required={true}
-				/>
-
-				<div class="flex items-center gap-2">
-					<input
-						id="campaign"
-						type="checkbox"
-						class="h-4 w-4 cursor-pointer"
-						bind:checked={receiveCampaignEmails}
-					/>
-					<label for="campaign" class="text-sm text-gray-600">キャンペーンメールを受信する</label>
-				</div>
-
-				<div class="flex flex-col gap-3">
-					<Button
-						type="submit"
-						class="w-full cursor-pointer bg-blue-500 font-bold text-white hover:bg-blue-600"
-					>
-						次に進む
+				<div class="mt-4 flex flex-col items-center gap-3">
+					<Button type="submit" class="w-72 cursor-pointer bg-blue-500 hover:bg-blue-600">
+						登録
 					</Button>
 					<Button
 						type="button"
 						variant="outline"
-						onclick={() => goto(cancelLink)}
-						class="w-full cursor-pointer font-bold text-gray-600"
+						onclick={handleCancel}
+						class="w-72 cursor-pointer text-gray-600">キャンセル</Button
 					>
-						キャンセル
-					</Button>
 				</div>
 			</form>
 		</Card.Content>

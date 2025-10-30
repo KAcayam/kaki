@@ -3,49 +3,58 @@
 	import CartItemCard from '$lib/components/panel/CartItemCard.svelte';
 	import CartSummary from '$lib/components/panel/CartSummary.svelte';
 	import { ChevronLeft } from 'lucide-svelte';
+	import data from '$lib/data.json'; // data.jsonをインポート
 
 	export const pageTitle = 'カート';
 
-	import Kaki1 from '$lib/images/sample/kaki1.png';
-	import Kaki3 from '$lib/images/sample/kaki3.jpg';
-	import muki1 from '$lib/images/sample/muki1.jpg';
+	// data.jsonの商品型に合わせた基本型を定義
+	interface ProductBase {
+		id: string;
+		name: string;
+		price: number;
+		image: string | null;
+		defaultVariant?: string; // カートでvariantとして使用
+	}
+
+	// カートアイテムの型定義
+	type CartItem = {
+		id: string;
+		title: string; // 商品名
+		variant: string; // kg, 個, パックなど
+		price: number;
+		quantity: number;
+		img: string | null; // 画像パス
+	};
 
 	let currentStepperIndex: number = $state(0);
 
-	// カートデータの静的サンプル
-	type CartItem = {
-		id: string;
-		title: string;
-		variant: 'kg' | '個' | 'パック';
-		price: number;
-		quantity: number;
-		img: string;
-	};
-
+	// カートデータのサンプルを data.json から取得して構築
+	// 実際にはユーザーのカート情報をDBやセッションから取得するロジックになる
 	let items: CartItem[] = $state([
+		// data.jsonから該当する商品を見つけ、カート固有の情報を付加
 		{
-			id: '1',
-			title: '殻付き生牡蠣',
-			variant: '個',
-			price: 4800,
+			id: 'oyster-001', // data.jsonのIDを使用
+			title: data.products.find((p) => p.id === 'oyster-001')?.name || '不明な商品',
+			variant: data.products.find((p) => p.id === 'oyster-001')?.defaultVariant || '個',
+			price: data.products.find((p) => p.id === 'oyster-001')?.price || 0,
 			quantity: 1,
-			img: Kaki1
+			img: data.products.find((p) => p.id === 'oyster-001')?.image || null
 		},
 		{
-			id: '2',
-			title: '生牡蠣 むき身',
-			variant: 'パック',
-			price: 2800,
+			id: 'oyster-005', // data.jsonのIDを使用
+			title: data.products.find((p) => p.id === 'oyster-005')?.name || '不明な商品',
+			variant: data.products.find((p) => p.id === 'oyster-005')?.defaultVariant || 'パック',
+			price: data.products.find((p) => p.id === 'oyster-005')?.price || 0,
 			quantity: 4,
-			img: muki1
+			img: data.products.find((p) => p.id === 'oyster-005')?.image || null
 		},
 		{
-			id: '3',
-			title: '殻付き生牡蠣',
-			variant: '個',
-			price: 5500,
+			id: 'oyster-003', // data.jsonのIDを使用
+			title: data.products.find((p) => p.id === 'oyster-003')?.name || '不明な商品',
+			variant: data.products.find((p) => p.id === 'oyster-003')?.defaultVariant || '個',
+			price: data.products.find((p) => p.id === 'oyster-003')?.price || 0,
 			quantity: 2,
-			img: Kaki3
+			img: data.products.find((p) => p.id === 'oyster-003')?.image || null
 		}
 	]);
 
@@ -61,13 +70,12 @@
 <div class="flex w-full items-center justify-center">
 	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
 		<div class="mb-4 ml-8 self-start">
-			<a href="/">
-				<button
-					class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
-				>
-					<ChevronLeft class="h-4 w-4 text-gray-600" />
-					<span class="text-sm">TOPに戻る</span>
-				</button>
+			<a
+				href="/"
+				class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
+			>
+				<ChevronLeft class="h-4 w-4 text-gray-600" />
+				<span class="text-sm">TOPに戻る</span>
 			</a>
 		</div>
 

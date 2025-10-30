@@ -4,14 +4,14 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Trash2 } from 'lucide-svelte';
 
-	// Propsの型定義
+	// Propsの型定義を修正
 	interface ItemProps {
 		id: string;
 		title: string;
-		variant: 'kg' | '個' | 'パック';
+		variant: string; // <-- ここを修正: 'kg' | '個' | 'パック' ではなく string に変更
 		price: number;
 		quantity: number;
-		img?: string;
+		img?: string | null; // <-- ここを修正: null も許容
 	}
 
 	interface CartItemCardProps {
@@ -100,7 +100,7 @@
 			<Button
 				variant="ghost"
 				size="icon"
-				class="cursor-pointer text-gray-500 hover:text-red-500"
+				class="cursor-pointer text-red-500"
 				onclick={() => onRemove(item.id)}
 				aria-label="削除"
 			>

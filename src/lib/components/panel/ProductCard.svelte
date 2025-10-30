@@ -5,7 +5,7 @@
 		id: string;
 		name: string;
 		price?: number;
-		image?: string;
+		image?: string | null; // <-- ここを修正
 		isLoggedInRequired?: boolean;
 		type?: string;
 	}

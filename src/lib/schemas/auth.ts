@@ -57,3 +57,14 @@ export const guestSchema = z.object({
 		.min(1, { message: '必須項目です' })
 		.pipe(z.email({ message: '有効なメールアドレスを入力してください' }))
 });
+
+// 配送先情報用のスキーマ
+export const addressSchema = z.object({
+	lastName: z.string().min(1, { message: '必須項目です' }),
+	firstName: z.string().min(1, { message: '必須項目です' }),
+	postalCode: z.string().min(1, { message: '必須項目です' }),
+	prefecture: z.string().min(1, { message: '必須項目です' }),
+	address1: z.string().min(1, { message: '必須項目です' }),
+	address2: z.string().optional(), // 住所２は必須ではないのでoptionalに
+	phoneNumber: z.string().min(1, { message: '必須項目です' })
+});
