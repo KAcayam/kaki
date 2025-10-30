@@ -6,40 +6,41 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { FieldSeparator } from '$lib/components/ui/field/index.js';
 	import { signupSchema } from '$lib/schemas/auth';
+	import { goto } from '$app/navigation';
 
 	// フォームのデータバインディング用
-	let email = '';
-	let password = '';
-	let passwordConfirm = '';
-	let lastName = '';
-	let firstName = '';
-	let lastNameKana = '';
-	let firstNameKana = '';
-	let postalCode = '';
-	let prefecture = '';
-	let address1 = '';
-	let address2 = '';
-	let phoneNumber = '';
-	let receiveCampaignEmails = true;
+	// すべての変数を $state でリアクティブにする
+	let email = $state('');
+	let password = $state('');
+	let passwordConfirm = $state('');
+	let lastName = $state('');
+	let firstName = $state('');
+	let lastNameKana = $state('');
+	let firstNameKana = $state('');
+	let postalCode = $state('');
+	let prefecture = $state('');
+	let address1 = $state('');
+	let address2 = $state('');
+	let phoneNumber = $state('');
+	let receiveCampaignEmails = $state(true); // boolean型も$stateで管理
 
 	// エラーメッセージ
-	let emailError: string | null = null;
-	let passwordError: string | null = null;
-	let passwordConfirmError: string | null = null;
-	let lastNameError: string | null = null;
-	let firstNameError: string | null = null;
-	let lastNameKanaError: string | null = null;
-	let firstNameKanaError: string | null = null;
-	let postalCodeError: string | null = null;
-	let prefectureError: string | null = null;
-	let address1Error: string | null = null;
-	let address2Error: string | null = null;
-	let phoneNumberError: string | null = null;
+	let emailError = $state<string | null>(null);
+	let passwordError = $state<string | null>(null);
+	let passwordConfirmError = $state<string | null>(null);
+	let lastNameError = $state<string | null>(null);
+	let firstNameError = $state<string | null>(null);
+	let lastNameKanaError = $state<string | null>(null);
+	let firstNameKanaError = $state<string | null>(null);
+	let postalCodeError = $state<string | null>(null);
+	let prefectureError = $state<string | null>(null);
+	let address1Error = $state<string | null>(null);
+	let address2Error = $state<string | null>(null);
+	let phoneNumberError = $state<string | null>(null);
 
 	function onsubmit(e: SubmitEvent) {
 		e.preventDefault();
 
-		// エラーリセット
 		emailError = null;
 		passwordError = null;
 		passwordConfirmError = null;
@@ -117,6 +118,8 @@
 		console.log('--- 登録データ ---', result.data);
 		alert('登録処理が実行されました（実際にはAPI通信などを行います）');
 	}
+
+	let { cancelLink = '/' } = $props<{ cancelLink?: string }>();
 </script>
 
 <div class="flex flex-col items-center gap-4">
@@ -247,21 +250,27 @@
 					<input
 						id="campaign"
 						type="checkbox"
-						class="h-4 w-4"
+						class="h-4 w-4 cursor-pointer"
 						bind:checked={receiveCampaignEmails}
 					/>
 					<label for="campaign">キャンペーンメールを受信する</label>
 				</div>
 
 				<div class="flex flex-col gap-3">
-					<Button type="submit" class="w-full bg-blue-500 font-bold text-white hover:bg-blue-600">
+					<Button
+						type="submit"
+						class="w-full cursor-pointer bg-blue-500 font-bold text-white hover:bg-blue-600"
+					>
 						登録
 					</Button>
-					<a href="/login">
-						<Button type="button" variant="outline" class="w-full font-bold text-gray-600">
-							キャンセル
-						</Button>
-					</a>
+					<Button
+						type="button"
+						variant="outline"
+						onclick={() => goto(cancelLink)}
+						class="w-full cursor-pointer font-bold text-gray-600"
+					>
+						キャンセル
+					</Button>
 				</div>
 			</form>
 		</Card.Content>

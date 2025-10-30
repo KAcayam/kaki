@@ -1,0 +1,140 @@
+{
+	"user": [
+		{
+			"id": "1",
+			"isPrimary": true,
+			"lastName": "田中",
+			"firstName": "太郎",
+			"lastNameKana": "タナカ",
+			"firstNameKana": "タロウ",
+			"email": "kaki@oystar.kaki",
+			"postalCode": "1010034",
+			"prefecture": "東京都",
+			"address1": "中央区銀座1-1-1",
+			"address2": "フラワーガーデン銀座101",
+			"phone": "05022334455",
+			"receiveCampaignEmails": true
+		},
+		{
+			"id": "2",
+			"isPrimary": true,
+			"lastName": "山田",
+			"firstName": "勇次郎",
+			"lastNameKana": "タナカ",
+			"firstNameKana": "ユウジロウ",
+			"postalCode": "1500001",
+			"prefecture": "東京都",
+			"address1": "渋谷区神南1-1-1",
+			"address2": "",
+			"phone": "09012345678",
+			"receiveCampaignEmails": true
+		},
+		{
+			"id": "3",
+			"isPrimary": false,
+			"lastName": "仁科",
+			"firstName": "花子",
+			"lastNameKana": "ニシナ",
+			"firstNameKana": "ハナコ",
+			"postalCode": "5400002",
+			"prefecture": "大阪府",
+			"address1": "大阪市中央区南船場1-2-3",
+			"address2": "パークハイアットマンション1202",
+			"phone": "08098765432",
+			"receiveCampaignEmails": false
+		}
+	],
+	"products": [
+		{
+			"id": "oyster-001",
+			"name": "殻付き生牡蠣",
+			"price": 4800,
+			"image": "/images/sample/kaki1.png",
+			"type": "with-shell",
+			"inStock": true,
+			"description": "・販売は1kg単位になります。自然のものなので多少の前後があることをご理解ください。",
+			"detailImages": [
+				"/images/sample/kaki1.png",
+				"/images/sample/kaki2.jpeg",
+				"/images/sample/kaki3.jpg"
+			],
+			"defaultVariant": "個"
+		},
+		{
+			"id": "oyster-002",
+			"name": "特選殻付き生牡蠣",
+			"price": 5200,
+			"image": "/images/sample/kaki2.jpeg",
+			"type": "with-shell",
+			"inStock": true,
+			"description": "・厳選された特選の殻付き生牡蠣です。特別な日にぜひ。",
+			"detailImages": [
+				"/images/sample/kaki2.jpeg",
+				"/images/sample/kaki1.png",
+				"/images/sample/kaki3.jpg"
+			],
+			"defaultVariant": "個"
+		},
+		{
+			"id": "oyster-003",
+			"name": "隠岐産殻付き生牡蠣",
+			"price": 7900,
+			"image": "/images/sample/kaki3.jpg",
+			"type": "with-shell",
+			"inStock": true,
+			"description": "・隠岐の豊かな海で育ったブランド牡蠣です。",
+			"detailImages": [
+				"/images/sample/kaki3.jpg",
+				"/images/sample/kaki1.png",
+				"/images/sample/kaki2.jpeg"
+			],
+			"defaultVariant": "個"
+		},
+		{
+			"id": "oyster-004",
+			"name": "画像なし商品サンプル",
+			"price": 3500,
+			"image": null,
+			"type": "no-image",
+			"inStock": true,
+			"description": "・こちらは現在未入荷のため画像がまだありません。",
+			"detailImages": [],
+			"defaultVariant": "個"
+		},
+		{
+			"id": "oyster-005",
+			"name": "むき身 ページサンプル",
+			"price": 2800,
+			"image": "/images/sample/muki1.jpg",
+			"type": "no-shell",
+			"inStock": false,
+			"description": "・1パックはおよそ500gとなります。自然のものなので多少の前後があることをご理解ください。",
+			"detailImages": ["/images/sample/muki1.jpg", "/images/sample/muki2.jpg"],
+			"defaultVariant": "パック"
+		},
+		{
+			"id": "oyster-006",
+			"name": "ログイン必須商品A",
+			"price": 1000,
+			"image": null,
+			"type": "login-required",
+			"isLoggedInRequired": true,
+			"inStock": true,
+			"description": "・ログインユーザーのみ購入可能な商品です。",
+			"detailImages": [],
+			"defaultVariant": "個"
+		},
+		{
+			"id": "oyster-007",
+			"name": "ログイン必須商品B",
+			"price": 2000,
+			"image": null,
+			"type": "login-required",
+			"isLoggedInRequired": true,
+			"inStock": true,
+			"description": "・ログインユーザーのみ購入可能な商品です。",
+			"detailImages": [],
+			"defaultVariant": "個"
+		}
+	]
+}

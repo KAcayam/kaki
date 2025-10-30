@@ -39,7 +39,7 @@
 		<button
 			type="button"
 			onclick={toggleShow}
-			class="absolute inset-y-0 right-2 flex items-center justify-center text-gray-400 hover:text-gray-600"
+			class="absolute inset-y-0 right-2 flex cursor-pointer items-center justify-center text-gray-400 hover:text-gray-600"
 			tabindex="-1"
 		>
 			{#if $showPassword}
