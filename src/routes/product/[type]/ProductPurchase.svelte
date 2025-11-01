@@ -2,7 +2,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Select from '$lib/components/ui/select';
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
-	import AddtoCartModal from '$lib/components/panel/AddtoCart.svelte';
+	import AddtoCartModal from './AddtoCart.svelte';
 
 	interface Product {
 		id: string; // <-- ここを追加

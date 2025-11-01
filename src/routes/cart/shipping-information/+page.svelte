@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Stepper from '$lib/components/ui/Stepper.svelte';
-	import AddressCard from '$lib/components/panel/AddressCard.svelte';
-	import AddressEdit from '$lib/components/panel/AddressEdit.svelte';
+	import AddressCard from './AddressCard.svelte';
+	import AddressEdit from './AddressEdit.svelte';
 	import * as RadioGroup from '$lib/components/ui/radio-group';
 	import { Button } from '$lib/components/ui/button';
 	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';

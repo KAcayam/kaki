@@ -1,5 +1,5 @@
 <script lang="ts">
-	import GuestForm from '$lib/components/GuestForm.svelte';
+	import GuestForm from '$lib/components/account/GuestForm.svelte';
 </script>
 
 <div class="mx-auto w-full max-w-sm px-4">

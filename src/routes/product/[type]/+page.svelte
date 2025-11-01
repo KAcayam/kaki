@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { ChevronLeft } from 'lucide-svelte';
-	import ProductImageGallery from '$lib/components/panel/ProductImageGallery.svelte';
-	import ProductPurchase from '$lib/components/panel/ProductPurchase.svelte';
+	import ProductImageGallery from './ProductImageGallery.svelte';
+	import ProductPurchase from './ProductPurchase.svelte';
 	import data from '$lib/data.json'; // data.jsonをインポート
 
 	export const pageTitle = '商品詳細';
