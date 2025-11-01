@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
-	import ProductCard from '$lib/components/panel/ProductCard.svelte';
+	import ProductCard from './ProductCard.svelte';
 	import data from '$lib/data.json'; // data.jsonをインポート
 
 	// JSONのproducts配列に合わせた型定義

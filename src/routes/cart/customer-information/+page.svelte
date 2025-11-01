@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-	import AccountData from '$lib/components/panel/AccountData.svelte';
+	import AccountData from '$lib/components/account/AccountData.svelte';
 	import { isLoggedIn } from '$lib/stores/auth';
 	import { goto } from '$app/navigation';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import AccountEdit from '$lib/components/panel/AccountEdit.svelte';
+	import AccountEdit from '$lib/components/account/AccountEdit.svelte';
 	import data from '$lib/data.json';
 
 	// data.jsonからサンプルを取得
@@ -17,17 +17,43 @@
 		showEditModal = false;
 	}
 
-	let { shippingLink = '/cart/shipping-information' } = $props<{ shippingLink?: string }>();
+	const {
+		shippingLink = '/cart/shipping-information',
+		loginLink = '/cart/customer-information/login',
+		guestLink = '/cart/customer-information/guest',
+		signupLink = '/cart/customer-information/signup'
+	} = $props<{
+		shippingLink?: string;
+		loginLink?: string;
+		guestLink?: string;
+		signupLink?: string;
+	}>();
+
+	function goToShipping() {
+		goto(shippingLink);
+	}
+
+	function goToLogin() {
+		goto(loginLink);
+	}
+
+	function goToGuest() {
+		goto(guestLink);
+	}
+
+	function goToSignup() {
+		goto(signupLink);
+	}
 </script>
 
 {#if $isLoggedIn}
-	<!-- ストアの値を参照 -->
-	<AccountData {user} />
+	<div class="flex w-full flex-col items-center px-4">
+		<AccountData {user} />
+	</div>
 
 	<div class="mx-auto mt-6 flex w-72 flex-col items-center gap-4">
-		<Button
-			onclick={() => goto(shippingLink)}
-			class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600">次へ</Button
+		<Button onclick={goToShipping} class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600"
+			>次へ</Button
 		>
 		<div class="flex w-full">
 			<button
@@ -40,20 +66,14 @@
 	</div>
 {:else}
 	<div class="mx-auto mt-6 flex w-72 flex-col items-center gap-8">
-		<Button
-			class="w-full cursor-pointer text-gray-600"
-			variant="outline"
-			onclick={() => goto('/customer-information/login')}>ログイン</Button
+		<Button class="w-full cursor-pointer text-gray-600" variant="outline" onclick={goToLogin}
+			>ログイン</Button
 		>
-		<Button
-			class="w-full cursor-pointer text-gray-600"
-			variant="outline"
-			onclick={() => goto('/customer-information/guest')}>ゲスト購入</Button
+		<Button class="w-full cursor-pointer text-gray-600" variant="outline" onclick={goToGuest}
+			>ゲスト購入</Button
 		>
-		<Button
-			class="w-full cursor-pointer text-gray-600"
-			variant="outline"
-			onclick={() => goto('/customer-information/signup')}>新規登録</Button
+		<Button class="w-full cursor-pointer text-gray-600" variant="outline" onclick={goToSignup}
+			>新規登録</Button
 		>
 	</div>
 {/if}

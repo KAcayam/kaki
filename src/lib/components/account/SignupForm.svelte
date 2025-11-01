@@ -114,15 +114,12 @@
 			});
 			return;
 		}
-
-		console.log('--- 登録データ ---', result.data);
-		alert('登録処理が実行されました（実際にはAPI通信などを行います）');
 	}
 
 	let { cancelLink = '/' } = $props<{ cancelLink?: string }>();
 </script>
 
-<div class="flex flex-col items-center gap-4">
+<div class="flex flex-col items-center">
 	<Card.Root class="w-full max-w-3xl">
 		<Card.Content>
 			<form class="flex flex-col gap-6" {onsubmit} novalidate>
@@ -246,20 +243,20 @@
 					required={true}
 				/>
 
-				<div class="flex items-center gap-3">
+				<div class="flex items-center gap-2 pt-2">
 					<input
 						id="campaign"
 						type="checkbox"
 						class="h-4 w-4 cursor-pointer"
 						bind:checked={receiveCampaignEmails}
 					/>
-					<label for="campaign">キャンペーンメールを受信する</label>
+					<label for="campaign" class="text-sm text-gray-600">キャンペーンメールを受信する</label>
 				</div>
 
 				<div class="flex flex-col gap-3">
 					<Button
 						type="submit"
-						class="w-full cursor-pointer bg-blue-500 font-bold text-white hover:bg-blue-600"
+						class="w-full cursor-pointer bg-blue-500 text-white hover:bg-blue-600"
 					>
 						登録
 					</Button>
@@ -267,7 +264,7 @@
 						type="button"
 						variant="outline"
 						onclick={() => goto(cancelLink)}
-						class="w-full cursor-pointer font-bold text-gray-600"
+						class="w-full cursor-pointer text-gray-600"
 					>
 						キャンセル
 					</Button>

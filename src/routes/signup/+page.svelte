@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SignupForm from '$lib/components/SignupForm.svelte';
+	import SignupForm from '$lib/components/account/SignupForm.svelte';
 	import { ChevronLeft } from 'lucide-svelte';
 
 	export let pageTitle = 'アカウント新規作成';

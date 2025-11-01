@@ -57,8 +57,7 @@
 				"/images/sample/kaki1.png",
 				"/images/sample/kaki2.jpeg",
 				"/images/sample/kaki3.jpg"
-			],
-			"defaultVariant": "個"
+			]
 		},
 		{
 			"id": "oyster-002",
@@ -72,8 +71,7 @@
 				"/images/sample/kaki2.jpeg",
 				"/images/sample/kaki1.png",
 				"/images/sample/kaki3.jpg"
-			],
-			"defaultVariant": "個"
+			]
 		},
 		{
 			"id": "oyster-003",
@@ -87,8 +85,7 @@
 				"/images/sample/kaki3.jpg",
 				"/images/sample/kaki1.png",
 				"/images/sample/kaki2.jpeg"
-			],
-			"defaultVariant": "個"
+			]
 		},
 		{
 			"id": "oyster-004",
@@ -98,19 +95,17 @@
 			"type": "no-image",
 			"inStock": true,
 			"description": "・こちらは現在未入荷のため画像がまだありません。",
-			"detailImages": [],
-			"defaultVariant": "個"
+			"detailImages": []
 		},
 		{
 			"id": "oyster-005",
-			"name": "むき身 ページサンプル",
+			"name": "むき身 商品サンプル",
 			"price": 2800,
 			"image": "/images/sample/muki1.jpg",
 			"type": "no-shell",
 			"inStock": false,
 			"description": "・1パックはおよそ500gとなります。自然のものなので多少の前後があることをご理解ください。",
-			"detailImages": ["/images/sample/muki1.jpg", "/images/sample/muki2.jpg"],
-			"defaultVariant": "パック"
+			"detailImages": ["/images/sample/muki1.jpg", "/images/sample/muki2.jpg"]
 		},
 		{
 			"id": "oyster-006",
@@ -121,8 +116,7 @@
 			"isLoggedInRequired": true,
 			"inStock": true,
 			"description": "・ログインユーザーのみ購入可能な商品です。",
-			"detailImages": [],
-			"defaultVariant": "個"
+			"detailImages": []
 		},
 		{
 			"id": "oyster-007",
@@ -133,8 +127,7 @@
 			"isLoggedInRequired": true,
 			"inStock": true,
 			"description": "・ログインユーザーのみ購入可能な商品です。",
-			"detailImages": [],
-			"defaultVariant": "個"
+			"detailImages": []
 		}
 	]
 }

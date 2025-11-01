@@ -221,17 +221,14 @@
 				</div>
 
 				<div class="flex flex-col gap-3">
-					<Button
-						type="submit"
-						class="w-full cursor-pointer bg-blue-500 font-bold text-white hover:bg-blue-600"
-					>
+					<Button type="submit" class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600">
 						次に進む
 					</Button>
 					<Button
 						type="button"
 						variant="outline"
 						onclick={() => goto(cancelLink)}
-						class="w-full cursor-pointer font-bold text-gray-600"
+						class="w-full cursor-pointer text-gray-600"
 					>
 						キャンセル
 					</Button>

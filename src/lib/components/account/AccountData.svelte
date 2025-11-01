@@ -3,8 +3,8 @@
 	let { user }: { user: any } = $props();
 </script>
 
-<div class="mx-auto flex w-72 flex-col gap-4">
-	<div class="flex flex-col gap-4 rounded border border-gray-200 p-8">
+<div class="flex w-96 flex-col">
+	<div class="flex flex-col gap-4 rounded-lg border border-gray-200 p-8">
 		<div class="flex flex-row gap-8">
 			<div class="flex-1">
 				<div class="text-sm text-gray-500">姓</div>

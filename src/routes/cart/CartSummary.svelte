@@ -9,22 +9,21 @@
 	import { getLocalTimeZone, today, type CalendarDate } from '@internationalized/date';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
-	import Separator from '../ui/separator/separator.svelte';
+	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import { goto } from '$app/navigation';
 
 	// 親コンポーネントからカートアイテムを受け取る
 	type CartItem = {
 		id: string;
 		title: string;
-		variant: string; // <-- ここを修正: 'kg' | '個' | 'パック' ではなく string に変更
+		variant: string;
 		price: number;
 		quantity: number;
-		img: string | null; // <-- ここを修正: null も許容
+		img: string | null;
 	};
 
 	let { items }: { items: CartItem[] } = $props();
 
-	// 計算プロパティ
 	const subtotal = $derived(items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 	const total = $derived(subtotal);
 

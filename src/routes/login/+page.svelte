@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LoginForm from '$lib/components/LoginForm.svelte';
+	import LoginForm from '$lib/components/account/LoginForm.svelte';
 	import { ChevronLeft } from 'lucide-svelte';
 
 	export let pageTitle = 'ログイン';

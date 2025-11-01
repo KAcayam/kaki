@@ -1,17 +1,17 @@
-<!-- src/lib/components/ui/CartItemCard.svelte -->
 <script lang="ts">
 	import * as Select from '$lib/components/ui/select';
 	import { Button } from '$lib/components/ui/button';
 	import { Trash2 } from 'lucide-svelte';
 
-	// Propsの型定義を修正
 	interface ItemProps {
 		id: string;
 		title: string;
-		variant: string; // <-- ここを修正: 'kg' | '個' | 'パック' ではなく string に変更
+		// variantは親から渡されるが、typeも参照するため追加
+		variant: string;
 		price: number;
 		quantity: number;
-		img?: string | null; // <-- ここを修正: null も許容
+		img?: string | null;
+		type: 'with-shell' | 'no-shell' | 'no-image' | 'login-required'; // typeを追加
 	}
 
 	interface CartItemCardProps {
@@ -20,18 +20,14 @@
 		onChangeQuantity: (id: string, quantity: number) => void;
 	}
 
-	// props を受け取る（Svelte 5 の $props を利用）
 	let { item, onRemove, onChangeQuantity }: CartItemCardProps = $props();
 
-	// 選択肢（文字列で管理）
+	// 商品の選択できる数（今は仮で10個までとしています）
 	const quantities = Array.from({ length: 10 }, (_, i) => String(i + 1));
 
-	// selectedQuantity は $state で作る（テンプレートにそのまま出せるリアクティブ値）
 	let selectedQuantity = $state(String(item.quantity));
 
-	// selectedQuantity の変化を監視して親に通知（$effect）
 	$effect(() => {
-		// 注意: $effect の中で直接テンプレートの reactive 値を参照すると依存として追跡される
 		const q = Number(selectedQuantity);
 		if (q !== item.quantity) {
 			onChangeQuantity(item.id, q);
@@ -40,14 +36,15 @@
 
 	// 単位テキストは $derived.by を使って計算（関数で複雑な処理をする場合）
 	let unitText = $derived.by(() => {
-		switch (item.variant) {
-			case 'kg':
+		switch (
+			item.type // item.variant の代わりに item.type を参照
+		) {
+			case 'with-shell':
 				return 'kg';
-			case 'パック':
+			case 'no-shell':
 				return 'パック';
-			case '個':
 			default:
-				return '個';
+				return '不明な単位'; // その他のtypeの場合のフォールバック
 		}
 	});
 </script>
@@ -93,7 +90,6 @@
 				</Select.Content>
 			</Select.Root>
 
-			<!-- 単位テキスト -->
 			<span class="text-sm text-gray-700">{unitText}</span>
 
 			<!-- 削除ボタン -->
