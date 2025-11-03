@@ -7,7 +7,6 @@
 	import { goto } from '$app/navigation';
 
 	// フォームのデータバインディング用
-	// すべての変数を $state でリアクティブにする
 	let lastName = $state('');
 	let firstName = $state('');
 	let lastNameKana = $state('');
@@ -18,7 +17,7 @@
 	let address2 = $state('');
 	let phoneNumber = $state('');
 	let email = $state('');
-	let receiveCampaignEmails = $state(true); // boolean型も$stateで管理
+	let receiveCampaignEmails = $state(true);
 
 	// エラーメッセージ
 	let lastNameError = $state<string | null>(null);

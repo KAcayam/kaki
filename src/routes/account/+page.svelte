@@ -4,6 +4,7 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import AccountEdit from '$lib/components/account/AccountEdit.svelte';
 	import PasswordReset from './PasswordReset.svelte';
+	import { ChevronLeft } from 'lucide-svelte';
 	import data from '$lib/data.json';
 
 	// ログイン状態でメインアカウントは必ずあるので !　をつけて型エラーを回避
@@ -20,6 +21,15 @@
 
 <div class="flex w-full items-center justify-center">
 	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
+		<div class="mb-4 ml-8 self-start">
+			<a
+				href="/"
+				class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
+			>
+				<ChevronLeft class="h-4 w-4 text-gray-600" />
+				<span class="text-sm">TOPに戻る</span>
+			</a>
+		</div>
 		<div class="mb-6 ml-8 flex flex-row items-center gap-8">
 			<div class="text-xl">アカウント情報</div>
 		</div>

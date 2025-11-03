@@ -3,7 +3,6 @@
 	import * as RadioGroup from '$lib/components/ui/radio-group';
 	import { Pencil, Trash2 } from 'lucide-svelte';
 
-	// JSON の user 配列に合わせた型
 	interface User {
 		id: string;
 		isPrimary?: boolean;

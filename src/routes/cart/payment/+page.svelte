@@ -42,7 +42,7 @@
 			img: data.products.find((p) => p.id === 'oyster-005')?.image || null
 		},
 		{
-			id: 'oyster-003', // data.jsonのIDを使用
+			id: 'oyster-003',
 			title: data.products.find((p) => p.id === 'oyster-003')?.name || '不明な商品',
 			variant:
 				data.products.find((p) => p.id === 'oyster-003')?.type === 'with-shell' ? 'kg' : 'パック', // typeに基づいてvariantを設定

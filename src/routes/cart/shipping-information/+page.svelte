@@ -12,12 +12,11 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import { ChevronLeft } from 'lucide-svelte';
-	import data from '$lib/data.json'; // data.jsonをインポート
+	import data from '$lib/data.json';
 
 	export const pageTitle = 'ご配送先';
 	let currentStepperIndex = $state(2);
 
-	// JSONのuser配列に合わせた型
 	interface User {
 		id: string;
 		isPrimary?: boolean;

@@ -7,14 +7,9 @@
 
 	let selectedPayment = $state<'card' | 'convenience' | 'bank'>('card');
 
-	const {
-		creditCardPay = '/cart/payment/credit-card',
-		checkOut = '/cart/check-out',
-		checkOutGuest = '/cart/check-out/guest'
-	} = $props<{
+	const { creditCardPay = '', checkOut = '/cart/check-out' } = $props<{
 		creditCardPay?: string;
 		checkOut?: string;
-		checkOutGuest?: string;
 	}>();
 
 	function goToCreditCardPay() {
@@ -23,10 +18,6 @@
 
 	function goToCheckOut() {
 		goto(checkOut);
-	}
-
-	function goToCheckOutGuest() {
-		goto(checkOutGuest);
 	}
 </script>
 
@@ -66,18 +57,20 @@
 					<Input type="text" placeholder="123" class="mt-1 w-full" />
 				</div>
 			</div>
-			<Button class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">支払う</Button>
+			<Button
+				onclick={() => goto(checkOut)}
+				class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">支払う</Button
+			>
 		</div>
 	{/if}
 
 	{#if selectedPayment === 'convenience'}
 		<div class="rounded-lg border px-5 py-4 text-gray-600">
-			<div class="text-gray-500">
-				バーコードや番号など
-				<p class="text-sm text-blue-400">ケースサンプル→</p>
-				<p class="text-sm text-blue-400">ログイン済みでの完了画面へ</p>
-			</div>
-			<Button class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">購入する</Button>
+			<div class="text-gray-500">バーコードや番号など</div>
+			<Button
+				onclick={() => goto(checkOut)}
+				class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">購入する</Button
+			>
 			<div class="pt-2 text-xs text-gray-500">※出荷は入金が確認でき次第となります</div>
 		</div>
 	{/if}
@@ -88,10 +81,11 @@
 				オイスター銀行 牡蠣支店
 				<p>普通 09876543</p>
 				<p>株式会社かきフライ</p>
-				<p class="text-sm text-blue-400">ケースサンプル→</p>
-				<p class="text-sm text-blue-400">ゲスト購入での完了画面へ</p>
 			</div>
-			<Button class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">購入する</Button>
+			<Button
+				onclick={() => goto(checkOut)}
+				class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">購入する</Button
+			>
 			<div class="pt-2 text-xs text-gray-500">※出荷は入金が確認でき次第となります</div>
 		</div>
 	{/if}

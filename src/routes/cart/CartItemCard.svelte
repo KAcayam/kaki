@@ -6,7 +6,6 @@
 	interface ItemProps {
 		id: string;
 		title: string;
-		// variantは親から渡されるが、typeも参照するため追加
 		variant: string;
 		price: number;
 		quantity: number;
@@ -34,17 +33,14 @@
 		}
 	});
 
-	// 単位テキストは $derived.by を使って計算（関数で複雑な処理をする場合）
 	let unitText = $derived.by(() => {
-		switch (
-			item.type // item.variant の代わりに item.type を参照
-		) {
+		switch (item.type) {
 			case 'with-shell':
 				return 'kg';
 			case 'no-shell':
 				return 'パック';
 			default:
-				return '不明な単位'; // その他のtypeの場合のフォールバック
+				return '不明な単位';
 		}
 	});
 </script>

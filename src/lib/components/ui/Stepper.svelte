@@ -12,7 +12,6 @@
 		currentStepIndex = 0
 	}: { steps?: { label: string }[]; currentStepIndex?: number } = $props();
 
-	// currentStepIndex の変更に基づいてステップの状態を計算する派生状態
 	const getStepStatus = $derived((index: number) => {
 		if (index < currentStepIndex) return 'completed';
 		if (index === currentStepIndex) return 'current';

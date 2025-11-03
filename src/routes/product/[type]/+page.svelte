@@ -3,11 +3,10 @@
 	import { ChevronLeft } from 'lucide-svelte';
 	import ProductImageGallery from './ProductImageGallery.svelte';
 	import ProductPurchase from './ProductPurchase.svelte';
-	import data from '$lib/data.json'; // data.jsonをインポート
+	import data from '$lib/data.json';
 
 	export const pageTitle = '商品詳細';
 
-	// JSONのproducts配列に合わせた型定義 (defaultVariantの型を修正)
 	interface Product {
 		id: string;
 		name: string;
@@ -16,9 +15,9 @@
 		type: string;
 		inStock: boolean;
 		description: string;
-		detailImages: string[]; // 詳細ギャラリー用の画像パス
+		detailImages: string[];
 		isLoggedInRequired?: boolean;
-		defaultVariant?: string; // <-- ここを修正: 'kg' | '個' | 'パック' ではなく string に変更
+		defaultVariant?: string;
 	}
 
 	// URLからidクエリパラメータを取得
@@ -27,13 +26,7 @@
 	// data.jsonから該当する商品データを検索
 	const productData: Product | undefined = data.products.find((p) => p.id === productId);
 
-	// 商品データが見つからない場合のフォールバック（例: 404ページへのリダイレクトなど、運用時に実装）
-	// ここでは簡単のためにダミーデータを定義しますが、実際はエラーハンドリングが必要です。
 	if (!productData) {
-		// 例えば、エラーページにリダイレクトする
-		// import { goto } from '$app/navigation';
-		// goto('/404');
-		// または、SvelteKitのload関数で404を返す
 		console.error(`Product with ID ${productId} not found.`);
 	}
 
@@ -49,12 +42,8 @@
 		detailImages: []
 	};
 
-	// 実際の表示に使用する商品データ (見つからない場合はフォールバックを使用)
 	const displayProductData = productData || fallbackProductData;
 
-	// productType の定義は引き続きURLのtypeパラメータから行うが、主に表示ロジックのため
-	// data.jsonの商品オブジェクトのtypeプロパティを使用するとより一貫性がある
-	// 現在のロジックを維持するため、既存の productType 変数を残します。
 	const productType: 'withShell' | 'noShell' | 'noImage' | 'loginRequired' | 'generic' =
 		displayProductData.type === 'no-shell'
 			? 'noShell'
@@ -62,11 +51,11 @@
 				? 'noImage'
 				: displayProductData.type === 'login-required'
 					? 'loginRequired'
-					: 'withShell'; // デフォルトは 'withShell' と仮定
+					: 'withShell';
 
 	// ProductPurchase コンポーネントに渡すデータ
 	const productForPurchasePanel = {
-		id: displayProductData.id, // IDも渡すようにする
+		id: displayProductData.id,
 		name: displayProductData.name,
 		price: displayProductData.price,
 		inStock: displayProductData.inStock

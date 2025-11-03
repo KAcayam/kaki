@@ -68,3 +68,15 @@ export const addressSchema = z.object({
 	address2: z.string().optional(), // 住所２は必須ではないのでoptionalに
 	phoneNumber: z.string().min(1, { message: '必須項目です' })
 });
+
+// お問い合わせ用のスキーマ
+export const contactSchema = z.object({
+	email: z
+		.string()
+		.min(1, { message: '必須項目です' })
+		.pipe(z.email({ message: '有効なメールアドレスを入力してください' })),
+
+	subject: z.string().min(1, { message: '必須項目です' }),
+
+	message: z.string().min(1, { message: '必須項目です' })
+});
