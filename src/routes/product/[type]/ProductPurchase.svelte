@@ -5,8 +5,8 @@
 	import AddtoCartModal from './AddtoCart.svelte';
 
 	interface Product {
-		id: string; // <-- ここを追加
-		name: string; // <-- ここを追加
+		id: string;
+		name: string;
 		price: number;
 		inStock: boolean;
 	}
@@ -16,7 +16,7 @@
 		productType = 'withShell'
 	}: {
 		product: Product;
-		productType?: 'withShell' | 'noShell' | 'noImage' | 'loginRequired' | 'generic'; // <-- ここを修正
+		productType?: 'withShell' | 'noShell' | 'noImage' | 'loginRequired' | 'generic';
 	} = $props();
 
 	// 数量の選択肢を生成
@@ -30,7 +30,7 @@
 			? '1kgあたり'
 			: productType === 'noShell'
 				? '1パック(500g)あたり'
-				: undefined // どの条件にも合致しない場合は undefined
+				: undefined
 	);
 
 	const quantityLabel = $derived(
@@ -54,8 +54,6 @@
 
 	// カートに追加する処理（実際にはAPIコールなどを行う）
 	function handleAddToCart() {
-		// ここでカートに商品を追加するロジックを実装します
-		// 例: カートに product.id, product.name, product.price, selectedQuantity などを追加
 		console.log(
 			`カートに商品を追加: ${product.name} (ID: ${product.id}), 数量: ${selectedQuantity}`
 		);
@@ -64,19 +62,16 @@
 		showAddedToCartModal = true;
 	}
 
-	// モーダルから「支払いへ進む」コールバックを受け取った時のハンドラ
 	function handleProceedToCheckoutCallback() {
 		console.log('支払いへ進むコールバックが呼ばれました (子コンポーネントが遷移します)');
 		showAddedToCartModal = false;
 	}
 
-	// モーダルから「買い物を続ける」コールバックを受け取った時のハンドラ
 	function handleContinueShoppingCallback() {
 		console.log('買い物を続けるコールバックが呼ばれました (子コンポーネントが遷移します)');
 		showAddedToCartModal = false;
 	}
 
-	// モーダル自身の閉じる操作
 	function handleModalOpenChangeCallback(newOpen: boolean) {
 		showAddedToCartModal = newOpen;
 	}

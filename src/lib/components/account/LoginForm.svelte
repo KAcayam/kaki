@@ -7,7 +7,6 @@
 	import { loginSchema } from '$lib/schemas/auth';
 	import { goto } from '$app/navigation';
 
-	// $state ルーンを使ってリアクティブな状態として宣言する
 	let email = $state('');
 	let password = $state('');
 
@@ -18,7 +17,6 @@
 
 	function onSubmit(e: SubmitEvent) {
 		e.preventDefault();
-		// zodでバリデーション
 		const result = loginSchema.safeParse({ email, password });
 
 		emailError = null;
@@ -34,8 +32,6 @@
 		// バリデーションが成功した場合
 		const validatedData = result.data;
 		// ここでAPIに送信するなどの処理を行う
-		// 例: ログイン成功後にホーム画面に遷移
-		// goto('/');
 	}
 </script>
 

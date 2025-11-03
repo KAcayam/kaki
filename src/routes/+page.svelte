@@ -1,14 +1,13 @@
 <script lang="ts">
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
 	import ProductCard from './ProductCard.svelte';
-	import data from '$lib/data.json'; // data.jsonをインポート
+	import data from '$lib/data.json';
 
-	// JSONのproducts配列に合わせた型定義
 	interface Product {
 		id: string;
 		name: string;
 		price: number;
-		image: string | null; // 画像パスは文字列またはnull
+		image: string | null;
 		type: string;
 		isLoggedInRequired?: boolean;
 	}

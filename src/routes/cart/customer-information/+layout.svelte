@@ -2,10 +2,10 @@
 	import Stepper from '$lib/components/ui/Stepper.svelte';
 	import { ChevronLeft } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
-	import { isLoggedIn } from '$lib/stores/auth'; // ストアをインポート
+	import { isLoggedIn } from '$lib/stores/auth';
 
 	type ChildrenProps = {
-		isLoggedIn: boolean; // これはchildrenスロットに渡すための型定義。実データはストアから
+		isLoggedIn: boolean;
 		pageTitle: string;
 	};
 
@@ -13,11 +13,9 @@
 		data?: {
 			title?: string;
 		};
-		// isLoggedIn はストアから取得するため、ここでプロパティとして受け取る必要がなくなる
 		children: Snippet<[ChildrenProps]>;
 	};
 
-	// isLoggedIn はストアから取得するため、propsから削除
 	let { data, children }: LayoutComponentProps = $props();
 
 	let pageTitle = $derived(data?.title || 'お客様情報');
@@ -44,7 +42,6 @@
 			<div class="text-xl">{pageTitle}</div>
 		</div>
 
-		<!-- children に渡す isLoggedIn はストアの値を使用 -->
 		{@render children({ isLoggedIn: $isLoggedIn, pageTitle })}
 	</div>
 </div>
