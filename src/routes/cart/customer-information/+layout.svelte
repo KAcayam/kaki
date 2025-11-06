@@ -23,7 +23,7 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
+	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-4">
 		<div class="mb-4 ml-8 self-start">
 			<a
 				href="/cart"
@@ -34,12 +34,12 @@
 			</a>
 		</div>
 
-		<div class="mx-auto mb-8 w-full max-w-4xl px-8">
+		<div class="mx-auto mb-4 w-full max-w-4xl px-8">
 			<Stepper currentStepIndex={currentStepperIndex} />
 		</div>
 
-		<div class="mb-2 ml-8 flex flex-row items-center gap-8">
-			<div class="text-xl">{pageTitle}</div>
+		<div class="mb-2 ml-8 flex flex-row items-center gap-8 md:mb-4">
+			<div class="text-md md:text-xl">{pageTitle}</div>
 		</div>
 
 		{@render children({ isLoggedIn: $isLoggedIn, pageTitle })}

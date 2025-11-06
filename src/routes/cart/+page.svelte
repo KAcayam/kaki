@@ -68,7 +68,7 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
+	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-4">
 		<div class="mb-4 ml-8 self-start">
 			<a
 				href="/"
@@ -79,19 +79,19 @@
 			</a>
 		</div>
 
-		<div class="mx-auto mb-8 w-full max-w-4xl px-8">
+		<div class="mx-auto mb-4 w-full max-w-4xl px-8">
 			<Stepper currentStepIndex={currentStepperIndex} />
 		</div>
 
-		<div class="mb-6 ml-8 flex flex-row items-center gap-8">
-			<div class="text-xl">{pageTitle}</div>
+		<div class="mb-2 ml-8 flex flex-row items-center gap-8 md:mb-4">
+			<div class="text-md md:text-xl">{pageTitle}</div>
 		</div>
 
-		<div class="mx-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
+		<div class="mx-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
 			<!-- LEFT/カート内商品カラム -->
 			<section>
 				{#each items as item (item.id)}
-					<div class="mb-6">
+					<div class="mb-4">
 						<CartItemCard {item} onRemove={removeItem} onChangeQuantity={changeQty} />
 					</div>
 				{/each}

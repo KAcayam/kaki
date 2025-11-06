@@ -1,24 +1,28 @@
 <script lang="ts">
 	import Stepper from '$lib/components/ui/Stepper.svelte';
 	import { Button } from '$lib/components/ui/button';
-	import * as Dialog from '$lib/components/ui/dialog';
 	import data from '$lib/data.json';
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '$lib/stores/auth';
-	import GuestSignup from './GuestSignup.svelte';
 
 	export const pageTitle = 'ご購入いただきありがとうございます';
 	let currentStepperIndex = $state(4);
 
-	let { backToTop = '/' } = $props<{ backToTop?: string }>();
+	const { backToTopLink = '/', guestSignupLink = '/signup/guest' } = $props<{
+		backToTopLink?: string;
+		guestSignupLink?: string;
+	}>();
+
+	function backToTop() {
+		goto(backToTopLink);
+	}
+
+	function goToGuestSignup() {
+		goto(guestSignupLink);
+	}
 
 	// JSONからユーザー情報取得
 	const user = data.user.find((u) => u.id === '2');
-
-	let showGuestSignupModal = $state(false);
-	function handleOpenSignupModal() {
-		showGuestSignupModal = true;
-	}
 </script>
 
 <div class="flex w-full items-center justify-center">
@@ -28,7 +32,7 @@
 		</div>
 
 		<div class="my-6 flex flex-row items-center justify-center">
-			<div class="text-xl">{pageTitle}</div>
+			<div class="text-md md:text-xl">{pageTitle}</div>
 		</div>
 
 		<div class="mx-auto flex w-full max-w-lg flex-col gap-2 px-8">
@@ -50,7 +54,7 @@
 
 					<Button
 						class="mx-auto w-72 cursor-pointer bg-blue-500 hover:bg-blue-600"
-						onclick={handleOpenSignupModal}
+						onclick={goToGuestSignup}
 					>
 						登録する
 					</Button>
@@ -59,7 +63,7 @@
 
 			<div class="mx-auto flex pt-8">
 				<Button
-					onclick={() => goto(backToTop)}
+					onclick={backToTop}
 					class="w-72 cursor-pointer text-gray-600 hover:text-gray-700"
 					variant="outline"
 				>
@@ -69,10 +73,3 @@
 		</div>
 	</div>
 </div>
-
-<!-- モーダル部分 -->
-<Dialog.Root bind:open={showGuestSignupModal}>
-	<Dialog.Content class="w-96">
-		<GuestSignup {user} onCancel={() => (showGuestSignupModal = false)} />
-	</Dialog.Content>
-</Dialog.Root>

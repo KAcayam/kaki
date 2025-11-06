@@ -1,12 +1,8 @@
 <script lang="ts">
-	import FormInput from '$lib/components/form-base/FormInput.svelte';
 	import FormPassword from '$lib/components/form-base/FormPassword.svelte';
-	import SelectPrefecture from '$lib/components/form-base/SelectPrefecture.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { FieldSeparator } from '$lib/components/ui/field/index.js';
-	import { signupSchema } from '$lib/schemas/auth';
-	import { goto } from '$app/navigation';
+	import { passwordChangeSchema } from '$lib/schemas/auth';
 
 	let password = $state('');
 	let passwordConfirm = $state('');
@@ -15,17 +11,22 @@
 	let passwordError = $state<string | null>(null);
 	let passwordConfirmError = $state<string | null>(null);
 
-	let { onCancel = () => {} } = $props<{
-		onCancel?: () => void;
-	}>();
+	// 親コンポーネントから受け取る props
+	let { onCancel = () => {}, onSave = (newPassword: string, confirmPassword: string) => {} } =
+		$props<{
+			onCancel?: () => void;
+			onSave?: (newPassword: string, confirmPassword: string) => void;
+		}>();
 
 	function onsubmit(e: SubmitEvent) {
 		e.preventDefault();
 
+		// エラーリセット
 		passwordError = null;
 		passwordConfirmError = null;
 
-		const result = signupSchema.safeParse({
+		const result = passwordChangeSchema.safeParse({
+			// passwordChangeSchema を使用
 			password,
 			passwordConfirm
 		});
@@ -45,6 +46,9 @@
 			});
 			return;
 		}
+
+		// バリデーションが成功したら、親コンポーネントの onSave を呼び出す
+		onSave(password, passwordConfirm);
 	}
 
 	function handleCancel() {
@@ -52,13 +56,14 @@
 	}
 </script>
 
-<div class="flex flex-col items-center gap-4">
-	<Card.Root class="w-full max-w-md border-0 shadow-none">
+<div class="flex w-full max-w-sm">
+	<Card.Root class="w-full shadow-none">
+		<Card.Header><Card.Description>パスワードを変更する</Card.Description></Card.Header>
 		<Card.Content>
 			<form class="flex flex-col gap-6" {onsubmit} novalidate>
 				<FormPassword
-					id="signup-password"
-					label="パスワード"
+					id="reset-password"
+					label="新しいパスワード"
 					placeholder="半角英数字で8文字以上"
 					bind:value={password}
 					error={passwordError}
@@ -66,8 +71,8 @@
 				/>
 
 				<FormPassword
-					id="signup-password-confirm"
-					label="パスワード(確認)"
+					id="reset-password-confirm"
+					label="新しいパスワード(確認)"
 					placeholder="確認のためもう一度入力してください"
 					bind:value={passwordConfirm}
 					error={passwordConfirmError}

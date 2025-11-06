@@ -2,7 +2,9 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Select from '$lib/components/ui/select';
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
-	import AddtoCartModal from './AddtoCart.svelte';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import { goto } from '$app/navigation';
+	import { Check } from 'lucide-svelte';
 
 	interface Product {
 		id: string;
@@ -19,12 +21,11 @@
 		productType?: 'withShell' | 'noShell' | 'noImage' | 'loginRequired' | 'generic';
 	} = $props();
 
-	// 数量の選択肢を生成
-	const quantities = Array.from({ length: 10 }, (_, i) => i + 1); // lengthで最大選択数を設定
+	// 数量の選択肢
+	const quantities = Array.from({ length: 10 }, (_, i) => i + 1);
 	let selectedQuantity = $state<string>('1');
 	const triggerContent = $derived(selectedQuantity);
 
-	// サンプル表示の際の例　運用時はデータによってproductTypeを設定
 	const priceUnit = $derived(
 		productType === 'withShell' || productType === 'noImage'
 			? '1kgあたり'
@@ -49,36 +50,34 @@
 				: undefined
 	);
 
-	// モーダルの表示状態を管理するステート
+	// モーダル表示
 	let showAddedToCartModal = $state(false);
 
-	// カートに追加する処理（実際にはAPIコールなどを行う）
+	// カートに追加
 	function handleAddToCart() {
 		console.log(
 			`カートに商品を追加: ${product.name} (ID: ${product.id}), 数量: ${selectedQuantity}`
 		);
-
-		// 処理が完了したらモーダルを表示
 		showAddedToCartModal = true;
 	}
 
-	function handleProceedToCheckoutCallback() {
-		console.log('支払いへ進むコールバックが呼ばれました (子コンポーネントが遷移します)');
+	function handleProceedToCheckout() {
 		showAddedToCartModal = false;
+		goto('/cart');
 	}
 
-	function handleContinueShoppingCallback() {
-		console.log('買い物を続けるコールバックが呼ばれました (子コンポーネントが遷移します)');
+	function handleContinueShopping() {
 		showAddedToCartModal = false;
+		goto('/');
 	}
 
-	function handleModalOpenChangeCallback(newOpen: boolean) {
+	function handleModalOpenChange(newOpen: boolean) {
 		showAddedToCartModal = newOpen;
 	}
 </script>
 
 <div class="flex flex-col">
-	<div class="max-w-xs rounded-lg border p-4">
+	<div class="max-w-sm rounded-lg border p-4 md:max-w-xs">
 		<div class="mb-4">
 			<p class="text-sm text-muted-foreground">{priceUnit}</p>
 			<div class="flex items-baseline gap-2">
@@ -96,13 +95,13 @@
 			</div>
 		</div>
 
-		<div class="mb-6 space-y-2 text-sm text-muted-foreground">
+		<div class="mb-4 space-y-2 text-sm text-muted-foreground">
 			<SelectCalendar />
 			<p>
 				お届け予定日： <span class="text-gray-700">通常2〜6日後にお届け</span>
 			</p>
-			<p class="text-xs">※ 出荷不可日、一部離島は除く</p>
-			<p class="text-xs">※ 出荷は支払い確認後となります</p>
+			<div class="text-xs leading-[0.5]">※ 出荷不可日、一部離島は除く</div>
+			<div class="text-xs">※ 出荷は支払い確認後となります</div>
 		</div>
 
 		<div class="mb-6">
@@ -129,19 +128,41 @@
 		<div>
 			<Button
 				type="button"
-				class="w-72 cursor-pointer bg-blue-500 hover:bg-blue-600"
+				class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600 md:w-72"
 				onclick={handleAddToCart}
 			>
 				カートに入れる
 			</Button>
 		</div>
 
-		<!-- モーダル -->
-		<AddtoCartModal
-			open={showAddedToCartModal}
-			onProceedToCheckout={handleProceedToCheckoutCallback}
-			onContinueShopping={handleContinueShoppingCallback}
-			onOpenChange={handleModalOpenChangeCallback}
-		/>
+		<!-- モーダルをページ内に統合 -->
+		<Dialog.Root bind:open={showAddedToCartModal} onOpenChange={handleModalOpenChange}>
+			<Dialog.Content class="w-96">
+				<Dialog.Header>
+					<div class="mt-4 ml-6 flex items-center gap-1">
+						<Check class="h-6 w-6 text-green-500" />
+						<Dialog.Description class="text-sm text-gray-600"
+							>カートに商品が追加されました</Dialog.Description
+						>
+					</div>
+				</Dialog.Header>
+
+				<div class="mx-auto flex flex-col gap-4 py-4">
+					<Button
+						onclick={handleProceedToCheckout}
+						class="w-72 cursor-pointer bg-blue-500 hover:bg-blue-600"
+					>
+						カートを確認する
+					</Button>
+					<Button
+						onclick={handleContinueShopping}
+						class="w-72 cursor-pointer text-gray-600"
+						variant="outline"
+					>
+						買い物を続ける
+					</Button>
+				</div>
+			</Dialog.Content>
+		</Dialog.Root>
 	</div>
 </div>

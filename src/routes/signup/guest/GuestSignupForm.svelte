@@ -3,31 +3,35 @@
 	import SelectPrefecture from '$lib/components/form-base/SelectPrefecture.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { signupSchema } from '$lib/schemas/auth'; // サインアップと同じスキーマを利用
-	import CardDescription from '../ui/card/card-description.svelte';
-	import CardHeader from '../ui/card/card-header.svelte';
+	import { signupSchema } from '$lib/schemas/auth';
+	import CardDescription from '../../../lib/components/ui/card/card-description.svelte';
+	import CardHeader from '../../../lib/components/ui/card/card-header.svelte';
+	import FormPassword from '$lib/components/form-base/FormPassword.svelte';
+	import { FieldSeparator } from '$lib/components/ui/field/index.js';
 
 	let {
-		editingAccount = null,
+		guestUser = null,
 		onSave = (_updatedAccount: any) => {},
 		onCancel = () => {}
 	} = $props<{
-		editingAccount?: any | null;
+		guestUser?: any | null;
 		onSave?: (updatedAccount: any) => void;
 		onCancel?: () => void;
 	}>();
 
-	let lastName = $state(editingAccount?.lastName || '');
-	let firstName = $state(editingAccount?.firstName || '');
-	let lastNameKana = $state(editingAccount?.lastNameKana || '');
-	let firstNameKana = $state(editingAccount?.firstNameKana || '');
-	let email = $state(editingAccount?.email || '');
-	let postalCode = $state(editingAccount?.postalCode || '');
-	let prefecture = $state(editingAccount?.prefecture || '');
-	let address1 = $state(editingAccount?.address1 || '');
-	let address2 = $state(editingAccount?.address2 || '');
-	let phoneNumber = $state(editingAccount?.phoneNumber || '');
-	let receiveCampaignEmails = $state(editingAccount?.receiveCampaignEmails || false);
+	let lastName = $state(guestUser?.lastName || '');
+	let firstName = $state(guestUser?.firstName || '');
+	let lastNameKana = $state(guestUser?.lastNameKana || '');
+	let firstNameKana = $state(guestUser?.firstNameKana || '');
+	let email = $state(guestUser?.email || '');
+	let postalCode = $state(guestUser?.postalCode || '');
+	let prefecture = $state(guestUser?.prefecture || '');
+	let address1 = $state(guestUser?.address1 || '');
+	let address2 = $state(guestUser?.address2 || '');
+	let phoneNumber = $state(guestUser?.phoneNumber || '');
+	let password = $state('');
+	let passwordConfirm = $state('');
+	let receiveCampaignEmails = $state(guestUser?.receiveCampaignEmails || false);
 
 	// --- 各フィールドのエラーメッセージ ---
 	let lastNameError = $state<string | null>(null);
@@ -40,6 +44,8 @@
 	let address1Error = $state<string | null>(null);
 	let address2Error = $state<string | null>(null);
 	let phoneNumberError = $state<string | null>(null);
+	let passwordError = $state<string | null>(null);
+	let passwordConfirmError = $state<string | null>(null);
 
 	function onsubmitForm(e: SubmitEvent) {
 		e.preventDefault();
@@ -55,9 +61,10 @@
 			address1Error =
 			address2Error =
 			phoneNumberError =
+			passwordError =
+			passwordConfirmError =
 				null;
 
-		// サインアップと同じスキーマでチェック
 		const result = signupSchema.safeParse({
 			lastName,
 			firstName,
@@ -69,8 +76,8 @@
 			address1,
 			address2,
 			phoneNumber,
-			password: 'dummy1234', // スキーマ互換のためのダミー値
-			passwordConfirm: 'dummy1234'
+			password,
+			passwordConfirm
 		});
 
 		if (!result.success) {
@@ -108,12 +115,17 @@
 					case 'phoneNumber':
 						phoneNumberError = message;
 						break;
+					case 'password':
+						passwordError = message;
+						break;
+					case 'passwordConfirm':
+						passwordConfirmError = message;
+						break;
 				}
 			});
-			return; // ← バリデーションNGなら保存せず終了
+			return;
 		}
 
-		// バリデーションOKなら親に保存イベントを渡す
 		onSave({
 			lastName,
 			firstName,
@@ -125,6 +137,7 @@
 			address1,
 			address2,
 			phoneNumber,
+			password,
 			receiveCampaignEmails
 		});
 	}
@@ -132,9 +145,33 @@
 
 <div class="flex flex-col items-center gap-4">
 	<Card.Root class="w-full max-w-sm shadow-none">
-		<CardHeader><CardDescription>アカウント情報編集</CardDescription></CardHeader>
 		<Card.Content>
 			<form class="flex flex-col gap-6" onsubmit={onsubmitForm} novalidate>
+				<FormInput
+					id="account-email"
+					label="メールアドレス"
+					type="email"
+					required
+					bind:value={email}
+					error={emailError}
+				/>
+				<FormPassword
+					id="password"
+					label="パスワード"
+					required
+					bind:value={password}
+					error={passwordError}
+				/>
+				<FormPassword
+					id="password-confirm"
+					label="パスワード(確認)"
+					required
+					bind:value={passwordConfirm}
+					error={passwordConfirmError}
+				/>
+
+				<FieldSeparator />
+
 				<div class="grid grid-cols-2 gap-4">
 					<FormInput
 						id="account-last-name"
@@ -173,14 +210,6 @@
 					/>
 				</div>
 
-				<FormInput
-					id="account-email"
-					label="メールアドレス"
-					type="email"
-					required
-					bind:value={email}
-					error={emailError}
-				/>
 				<FormInput
 					id="account-postal-code"
 					label="郵便番号"
@@ -228,7 +257,7 @@
 
 				<div class="flex max-w-sm flex-col items-center gap-3 pt-4">
 					<Button type="submit" class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600"
-						>保存</Button
+						>確認</Button
 					>
 					<Button
 						type="button"

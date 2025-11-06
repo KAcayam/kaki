@@ -7,8 +7,9 @@
 	import { FieldSeparator } from '$lib/components/ui/field/index.js';
 	import { signupSchema } from '$lib/schemas/auth';
 	import { goto } from '$app/navigation';
+	import ConfirmSignUpModal from '$lib/components/ui/ConfirmSignUpModal.svelte';
 
-	// フォームのデータバインディング用
+	// フォームのデータ
 	let email = $state('');
 	let password = $state('');
 	let passwordConfirm = $state('');
@@ -37,9 +38,50 @@
 	let address2Error = $state<string | null>(null);
 	let phoneNumberError = $state<string | null>(null);
 
+	// 確認モーダル用一時データ
+	let tempAccount = $state({
+		email: '',
+		password: '',
+		passwordConfirm: '',
+		lastName: '',
+		firstName: '',
+		lastNameKana: '',
+		firstNameKana: '',
+		postalCode: '',
+		prefecture: '',
+		address1: '',
+		address2: '',
+		phoneNumber: '',
+		receiveCampaignEmails: true
+	});
+
+	// モーダルを開くタイミングなどで更新
+	function openConfirmModal() {
+		Object.assign(tempAccount, {
+			email,
+			password,
+			passwordConfirm,
+			lastName,
+			firstName,
+			lastNameKana,
+			firstNameKana,
+			postalCode,
+			prefecture,
+			address1,
+			address2,
+			phoneNumber,
+			receiveCampaignEmails
+		});
+		showConfirmModal = true;
+	}
+	let showConfirmModal = $state(false);
+
+	let { cancelLink = '/' } = $props<{ cancelLink?: string }>();
+
 	function onsubmit(e: SubmitEvent) {
 		e.preventDefault();
 
+		// エラーリセット
 		emailError = null;
 		passwordError = null;
 		passwordConfirmError = null;
@@ -113,13 +155,34 @@
 			});
 			return;
 		}
+
+		// バリデーション成功 → 確認モーダル用にデータをセットして開く
+		Object.assign(tempAccount, {
+			email,
+			password,
+			passwordConfirm,
+			lastName,
+			firstName,
+			lastNameKana,
+			firstNameKana,
+			postalCode,
+			prefecture,
+			address1,
+			address2,
+			phoneNumber,
+			receiveCampaignEmails
+		});
+		showConfirmModal = true;
 	}
 
-	let { cancelLink = '/' } = $props<{ cancelLink?: string }>();
+	function handleConfirmUpdate() {
+		// 今は開発段階なので閉じるだけ
+		showConfirmModal = false;
+	}
 </script>
 
 <div class="flex flex-col items-center">
-	<Card.Root class="w-full max-w-3xl">
+	<Card.Root class="w-full max-w-sm shadow-none">
 		<Card.Content>
 			<form class="flex flex-col gap-6" {onsubmit} novalidate>
 				<FormInput
@@ -152,7 +215,7 @@
 
 				<FieldSeparator />
 
-				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+				<div class="grid grid-cols-2 gap-4">
 					<FormInput
 						id="signup-last-name"
 						label="姓"
@@ -173,7 +236,7 @@
 					/>
 				</div>
 
-				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+				<div class="grid grid-cols-2 gap-4">
 					<FormInput
 						id="signup-last-name-kana"
 						label="姓(カナ)"
@@ -257,7 +320,7 @@
 						type="submit"
 						class="w-full cursor-pointer bg-blue-500 text-white hover:bg-blue-600"
 					>
-						登録
+						確認
 					</Button>
 					<Button
 						type="button"
@@ -272,3 +335,10 @@
 		</Card.Content>
 	</Card.Root>
 </div>
+
+<ConfirmSignUpModal
+	bind:open={showConfirmModal}
+	{tempAccount}
+	onConfirm={handleConfirmUpdate}
+	onCancel={() => (showConfirmModal = false)}
+/>

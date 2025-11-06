@@ -29,7 +29,7 @@
 <div class="flex flex-col items-center bg-card pb-4">
 	<div class="rounded-lg border">
 		{#if mainImage}
-			<img src={mainImage} alt="商品写真" class="h-96 rounded-lg object-contain" />
+			<img src={mainImage} alt="商品写真" class="h-72 rounded-lg object-contain md:h-96" />
 		{:else}
 			<div class="flex h-72 w-96 items-center justify-center rounded-lg bg-gray-200 text-gray-500">
 				画像なし

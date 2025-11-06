@@ -3,7 +3,7 @@
 
 	let {
 		steps = [
-			{ label: 'カートの確認' },
+			{ label: 'カート確認' },
 			{ label: 'お客様情報' },
 			{ label: 'ご配送先' },
 			{ label: 'お支払い方法' },

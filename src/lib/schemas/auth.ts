@@ -39,6 +39,17 @@ export const signupSchema = z
 		path: ['passwordConfirm']
 	});
 
+// パスワード変更用のスキーマ
+export const passwordChangeSchema = z
+	.object({
+		password: z.string().min(8, { message: '半角英数字8文字以上にしてください' }),
+		passwordConfirm: z.string().min(1, { message: '必須項目です' })
+	})
+	.refine((data) => data.password === data.passwordConfirm, {
+		message: 'パスワードが一致しません',
+		path: ['passwordConfirm']
+	});
+
 // ゲスト購入用のスキーマ
 export const guestSchema = z.object({
 	lastName: z.string().min(1, { message: '必須項目です' }),

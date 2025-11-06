@@ -57,6 +57,10 @@
 					<Input type="text" placeholder="123" class="mt-1 w-full" />
 				</div>
 			</div>
+			<div>
+				<Label class="block text-sm text-gray-600">カード名義</Label>
+				<Input type="text" placeholder="TARO KAKI" class="mt-1 w-full" />
+			</div>
 			<Button
 				onclick={() => goto(checkOut)}
 				class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">支払う</Button
@@ -65,18 +69,18 @@
 	{/if}
 
 	{#if selectedPayment === 'convenience'}
-		<div class="rounded-lg border px-5 py-4 text-gray-600">
+		<div class="flex flex-col gap-3 rounded-lg border px-5 py-4 text-gray-600">
 			<div class="text-gray-500">バーコードや番号など</div>
 			<Button
 				onclick={() => goto(checkOut)}
-				class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">購入する</Button
+				class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">注文する</Button
 			>
 			<div class="pt-2 text-xs text-gray-500">※出荷は入金が確認でき次第となります</div>
 		</div>
 	{/if}
 
 	{#if selectedPayment === 'bank'}
-		<div class="rounded-lg border px-5 py-4 text-gray-600">
+		<div class="flex flex-col gap-3 rounded-lg border px-5 py-4 text-gray-600">
 			<div class="text-gray-600">
 				オイスター銀行 牡蠣支店
 				<p>普通 09876543</p>
@@ -84,7 +88,7 @@
 			</div>
 			<Button
 				onclick={() => goto(checkOut)}
-				class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">購入する</Button
+				class="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600">注文する</Button
 			>
 			<div class="pt-2 text-xs text-gray-500">※出荷は入金が確認でき次第となります</div>
 		</div>

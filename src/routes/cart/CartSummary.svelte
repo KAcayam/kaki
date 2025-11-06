@@ -57,7 +57,7 @@
 	}
 </script>
 
-<div class="h-fit w-96 rounded-lg border border-gray-200 p-6">
+<div class="h-fit w-full max-w-sm rounded-lg border border-gray-200 p-6">
 	<div class="mb-4">
 		<div class="flex items-center justify-between">
 			<div class="text-sm">商品小計</div>
@@ -168,8 +168,8 @@
 		<p>
 			お届け予定日： <span class="text-gray-700">通常2〜6日後にお届け</span>
 		</p>
-		<p class="text-xs">※ 出荷不可日、一部離島は除く</p>
-		<p class="text-xs">※ 出荷は支払い確認後となります</p>
+		<div class="text-xs leading-[0.5]">※ 出荷不可日、一部離島は除く</div>
+		<div class="text-xs">※ 出荷は支払い確認後となります</div>
 	</div>
 
 	<div class="flex flex-col gap-3">
