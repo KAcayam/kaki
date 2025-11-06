@@ -66,7 +66,7 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
+	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-4">
 		<div class="mb-4 ml-8 self-start">
 			<a
 				href="/cart/shipping-information"
@@ -77,25 +77,28 @@
 			</a>
 		</div>
 
-		<div class="mx-auto mb-8 w-full max-w-4xl px-8">
+		<div class="mx-auto mb-4 w-full max-w-4xl px-8">
 			<Stepper currentStepIndex={currentStepperIndex} />
 		</div>
 
-		<div class="mb-6 ml-8 flex flex-row items-center">
-			<div class="text-xl">{pageTitle}</div>
+		<div class="mb-2 ml-8 flex flex-row items-center md:mb-4">
+			<div class="text-md md:text-xl">{pageTitle}</div>
 		</div>
 
-		<div class="mx-auto flex w-full max-w-md flex-col gap-2 px-8">
-			<OrderDetails {cartItems} {subtotal} {shippingCost} {total} {formatCurrency} />
+		<div class="mx-auto grid w-full max-w-3xl grid-cols-1 gap-4 px-8 md:grid-cols-2">
+			<div class="mx-auto w-full max-w-sm">
+				<OrderDetails {cartItems} {subtotal} {shippingCost} {total} {formatCurrency} />
+			</div>
+			<div class="mx-auto w-full max-w-sm">
+				<PaymentCard />
 
-			<PaymentCard />
-
-			<div class="mx-auto flex w-72 flex-col pt-4">
-				<Button
-					onclick={() => goto(backToCart)}
-					class="w-full cursor-pointer text-gray-600 hover:text-gray-700"
-					variant="outline">カートに戻る</Button
-				>
+				<div class="mx-auto flex w-72 flex-col pt-4">
+					<Button
+						onclick={() => goto(backToCart)}
+						class="w-full cursor-pointer text-gray-600 hover:text-gray-700"
+						variant="outline">カートに戻る</Button
+					>
+				</div>
 			</div>
 		</div>
 	</div>

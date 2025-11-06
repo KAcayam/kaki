@@ -63,7 +63,7 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
+	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-4">
 		<div class="mb-4 ml-8 self-start">
 			<a
 				href="/"
@@ -74,11 +74,11 @@
 			</a>
 		</div>
 
-		<div class="mb-6 ml-8 flex flex-row items-center gap-8">
+		<div class="mb-2 ml-8 flex flex-row items-center gap-8 md:mb-4">
 			<div class="text-xl">{displayProductData.name}</div>
 		</div>
 
-		<div class="mx-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
+		<div class="mx-8 grid grid-cols-1 gap-4 md:grid-cols-2">
 			<!-- LEFT/画像・注釈カラム -->
 			<div class="rounded-lg border border-gray-200 p-4">
 				<ProductImageGallery images={displayProductData.detailImages} />

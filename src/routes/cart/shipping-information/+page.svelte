@@ -29,7 +29,7 @@
 		prefecture: string;
 		address1: string;
 		address2: string;
-		phone: string;
+		phoneNumber: string;
 		receiveCampaignEmails: boolean;
 	}
 	type UserFormData = Omit<User, 'id' | 'isPrimary'> & { id: string | null };
@@ -70,10 +70,6 @@
 	}
 
 	function handleDelete(user: User) {
-		if (user.isPrimary) {
-			toast.warning('アカウントご本人の住所は削除できません');
-			return;
-		}
 		users = users.filter((u) => u.id !== user.id);
 	}
 
@@ -96,7 +92,7 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
+	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-4">
 		<div class="mb-4 ml-8 self-start">
 			<a
 				href="/cart/customer-information"
@@ -107,36 +103,38 @@
 			</a>
 		</div>
 
-		<div class="mx-auto mb-8 w-full max-w-4xl px-8">
+		<div class="mx-auto mb-4 w-full max-w-4xl px-8">
 			<Stepper currentStepIndex={currentStepperIndex} />
 		</div>
 
-		<div class="mb-6 ml-8 flex flex-row items-center gap-8">
-			<div class="text-xl">{pageTitle}</div>
+		<div class="mb-2 ml-8 flex flex-row items-center gap-8 md:mb-4">
+			<div class="text-md md:text-xl">{pageTitle}</div>
 		</div>
 
-		<div class="flex w-full flex-col items-center gap-6 px-4">
-			<div class="w-full max-w-lg px-8">
-				<RadioGroup.Root bind:value={selectedId}>
-					{#each users as u (u.id)}
-						<AddressCard user={u} onEdit={openEditAddressModal} onDelete={handleDelete} />
-					{/each}
-				</RadioGroup.Root>
+		<div class="flex w-full flex-col items-center gap-6 px-8">
+			<div class="flex w-full max-w-3xl flex-col items-start gap-4">
+				<div class="w-full max-w-xl">
+					<RadioGroup.Root bind:value={selectedId}>
+						{#each users as u (u.id)}
+							<AddressCard user={u} onEdit={openEditAddressModal} onDelete={handleDelete} />
+						{/each}
+					</RadioGroup.Root>
+				</div>
+
+				<div class="flex w-full justify-center pt-4">
+					<Button
+						variant="outline"
+						class="w-full cursor-pointer text-gray-600 md:w-72"
+						onclick={openNewAddressModal}
+					>
+						新しい配送先を追加
+					</Button>
+				</div>
 			</div>
 
-			<div>
-				<Button
-					variant="outline"
-					class="w-72 cursor-pointer text-gray-600"
-					onclick={openNewAddressModal}
-				>
-					新しい配送先を追加
-				</Button>
-			</div>
+			<Separator class="max-w-3xl" />
 
-			<Separator class="max-w-4xl" />
-
-			<div class="flex w-full max-w-4xl flex-col gap-4 px-8">
+			<div class="flex w-full max-w-3xl flex-col gap-4">
 				<div class="flex w-full items-center gap-2">
 					<Checkbox id="gift-option" class="cursor-pointer" />
 					<Label for="gift-option" class="text-gray-500">ギフト用</Label>

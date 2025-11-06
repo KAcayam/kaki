@@ -3,7 +3,7 @@
 	let { user }: { user: any } = $props();
 </script>
 
-<div class="flex w-96 flex-col">
+<div class="flex w-full max-w-sm flex-col">
 	<div class="flex flex-col gap-4 rounded-lg border border-gray-200 p-8">
 		<div class="flex flex-row gap-8">
 			<div class="flex-1">
@@ -54,7 +54,7 @@
 
 		<div class="">
 			<div class="text-sm text-gray-500">電話番号</div>
-			<div class="break-all">{user.phone}</div>
+			<div class="break-all">{user.phoneNumber}</div>
 		</div>
 
 		<div class="">

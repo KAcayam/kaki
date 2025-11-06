@@ -52,7 +52,7 @@
 <ScrollArea class="max-h-[70vh]">
 	<Card.Root class="w-full max-w-md border-0 shadow-none">
 		<Card.Header>
-			<Card.Title class="text-sm text-gray-600">以下の情報で登録します</Card.Title>
+			<Card.Description class="text-sm text-gray-600">以下の情報で登録します</Card.Description>
 		</Card.Header>
 		<Card.Content class="max-h-[90vh] overflow-y-auto">
 			<div class="grid-col grid gap-4">
@@ -105,7 +105,7 @@
 
 				<div class="">
 					<div class="text-sm text-gray-500">電話番号</div>
-					<div class="break-all">{user.phone}</div>
+					<div class="break-all">{user.phoneNumber}</div>
 				</div>
 
 				<FieldSeparator />
@@ -141,7 +141,7 @@
 
 					<div class="flex flex-col items-center gap-3">
 						<Button type="submit" class="w-72 cursor-pointer bg-blue-500 hover:bg-blue-600">
-							登録
+							確認
 						</Button>
 						<Button
 							type="button"

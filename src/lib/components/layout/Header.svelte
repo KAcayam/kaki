@@ -13,10 +13,12 @@
 </script>
 
 <header class="w-full border-b border-gray-200 bg-white">
-	<div class="flex items-center justify-between px-8 py-2">
-		<span class="font-middle text-xl">新鮮な牡蠣販売所</span>
+	<div class="flex items-center justify-between px-4 py-2">
+		<a href="/" class="cursor-pointer">
+			<span class="font-middle text-xl">新鮮な牡蠣販売所</span>
+		</a>
 
-		<div class="flex items-center gap-6">
+		<div class="flex items-center gap-4">
 			<div class="relative">
 				<Button variant="ghost" class="cursor-pointer !p-0" onclick={() => goto('/cart')}>
 					<ShoppingCart class="!h-7 !w-7" />

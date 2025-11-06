@@ -18,7 +18,7 @@
 		prefecture: string;
 		address1: string;
 		address2: string;
-		phone: string;
+		phoneNumber: string;
 		receiveCampaignEmails: boolean;
 	};
 	type UserFormData = Omit<User, 'id' | 'isPrimary'> & { id: string | null };
@@ -40,7 +40,7 @@
 	let prefecture = $state(editingUser?.prefecture || '');
 	let address1 = $state(editingUser?.address1 || '');
 	let address2 = $state(editingUser?.address2 || '');
-	let phoneNumber = $state(editingUser?.phone || '');
+	let phoneNumber = $state(editingUser?.phoneNumber || '');
 
 	let lastNameError = $state<string | null>(null);
 	let firstNameError = $state<string | null>(null);
@@ -59,7 +59,7 @@
 			prefecture = editingUser.prefecture;
 			address1 = editingUser.address1;
 			address2 = editingUser.address2;
-			phoneNumber = editingUser.phone;
+			phoneNumber = editingUser.phoneNumber;
 		} else {
 			lastName = '';
 			firstName = '';
@@ -141,7 +141,7 @@
 			prefecture,
 			address1,
 			address2,
-			phone: phoneNumber
+			phoneNumber
 		});
 	}
 
@@ -154,9 +154,9 @@
 	<ScrollArea class="max-h-[70vh]">
 		<Card.Root class="w-full max-w-md border-0 shadow-none">
 			<Card.Header>
-				<Card.Title class="text-gray-600">
+				<Card.Description>
 					{editingUser ? '配送先を編集' : '新しい配送先'}
-				</Card.Title>
+				</Card.Description>
 			</Card.Header>
 			<Card.Content class="max-h-[90vh] overflow-y-auto">
 				<form class="flex flex-col gap-6" onsubmit={onsubmitForm} novalidate>

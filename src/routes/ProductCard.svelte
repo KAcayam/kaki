@@ -27,7 +27,6 @@
 	};
 </script>
 
-<!-- 外側をbuttonに変更、スタイルリセット -->
 <button
 	type="button"
 	onclick={navigate}
@@ -42,7 +41,7 @@
 				class="absolute inset-0 flex flex-col items-center justify-center p-2 text-center text-gray-300"
 			>
 				<CircleQuestionMark class="mb-2 h-16 w-16" />
-				<span>ログインが必要です</span>
+				<span class="lg:text-md text-sm">ログインが必要です</span>
 			</div>
 		{:else if product.image}
 			<img
@@ -61,13 +60,13 @@
 	</div>
 
 	<!-- 商品名と価格 -->
-	<div class="flex flex-col">
+	<div class="mx-auto flex flex-col items-center">
 		{#if showLoginRequired}
-			<p class="text-lg text-gray-600">ログインすると商品が閲覧できます</p>
+			<div class="text-sm text-gray-600 lg:text-lg">ログインすると商品が閲覧できます</div>
 		{:else}
-			<p class="text-lg">{product.name}</p>
+			<div class="text-sm md:text-sm lg:text-lg">{product.name}</div>
 			{#if product.price !== undefined}
-				<p class="text-lg">{product.price.toLocaleString()}円~</p>
+				<div class="text-sm md:text-sm lg:text-lg">{product.price.toLocaleString()}円~</div>
 			{/if}
 		{/if}
 	</div>

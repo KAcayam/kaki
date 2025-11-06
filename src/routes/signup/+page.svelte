@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col items-center justify-center pt-6">
+	<div class="flex w-full max-w-screen-2xl flex-col items-center justify-center pt-4">
 		<!-- 戻るボタン -->
 		<div class="mb-4 ml-8 self-start">
 			<a
@@ -18,9 +18,9 @@
 			</a>
 		</div>
 		<!-- タイトル -->
-		<div class="mb-6 ml-8 self-start text-xl">{pageTitle}</div>
+		<div class="text-md mb-2 ml-8 self-start md:mb-4 md:text-xl">{pageTitle}</div>
 		<!-- フォームパネル -->
-		<div class="flex w-full max-w-sm flex-col gap-6">
+		<div class="flex w-full flex-col px-8">
 			<SignupForm cancelLink="/" />
 		</div>
 	</div>
