@@ -26,29 +26,29 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-6">
-		<div class="mx-auto mb-8 w-full max-w-4xl px-8 pt-5">
+	<div class="mx-4 flex w-full max-w-screen-2xl flex-col justify-center pt-6 md:mx-8">
+		<div class="mx-auto mb-8 w-full max-w-4xl pt-5 md:max-w-2xl">
 			<Stepper currentStepIndex={currentStepperIndex} />
 		</div>
 
 		<div class="my-6 flex flex-row items-center justify-center">
-			<div class="text-md md:text-xl">{pageTitle}</div>
+			<div class="text-base md:text-xl">{pageTitle}</div>
 		</div>
 
-		<div class="mx-auto flex w-full max-w-lg flex-col gap-2 px-8">
+		<div class="mx-auto flex w-full max-w-lg flex-col gap-2">
 			{#if $isLoggedIn}
 				<!-- ログイン済みの場合 -->
-				<div class="mx-auto text-sm text-gray-600">
+				<div class="mx-auto text-xs text-gray-600 md:text-sm">
 					登録されたメールアドレス宛に確認メールが送信されました
 				</div>
 			{:else}
 				<!-- ゲスト購入の場合 -->
-				<div class="mx-auto text-sm text-gray-600">
+				<div class="mx-auto text-xs text-gray-600 md:text-sm">
 					ゲスト購入情報のメールアドレス宛に確認メールが送信されました
 				</div>
 
 				<div class="mx-auto flex w-full flex-col gap-4 pt-8">
-					<div class="mx-auto text-sm text-gray-600">
+					<div class="mx-auto text-xs text-gray-600 md:text-sm">
 						購入者情報を登録すると次回以降の取引がスムーズになります
 					</div>
 

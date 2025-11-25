@@ -1,17 +1,9 @@
 <script lang="ts">
 	import { CircleQuestionMark } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
+	import type { Product } from '$lib/types';
 
-	interface ProductData {
-		id: string;
-		name: string;
-		price?: number;
-		image?: string | null;
-		isLoggedInRequired?: boolean;
-		type?: string;
-	}
-
-	let { product }: { product: ProductData } = $props();
+	let { product }: { product: Product } = $props();
 
 	const showLoginRequired = $derived(product.isLoggedInRequired);
 
@@ -40,8 +32,8 @@
 			<div
 				class="absolute inset-0 flex flex-col items-center justify-center p-2 text-center text-gray-300"
 			>
-				<CircleQuestionMark class="mb-2 h-16 w-16" />
-				<span class="lg:text-md text-sm">ログインが必要です</span>
+				<CircleQuestionMark class="mb-2 h-12 w-12 md:h-16 md:w-16" />
+				<span class="md:text-md text-sm">ログインが必要です</span>
 			</div>
 		{:else if product.image}
 			<img
@@ -62,11 +54,13 @@
 	<!-- 商品名と価格 -->
 	<div class="mx-auto flex flex-col items-center">
 		{#if showLoginRequired}
-			<div class="text-sm text-gray-600 lg:text-lg">ログインすると商品が閲覧できます</div>
+			<div class="text-xs text-gray-600 md:text-base">ログインすると商品が閲覧できます</div>
 		{:else}
-			<div class="text-sm md:text-sm lg:text-lg">{product.name}</div>
+			<div class="text-xs md:text-base">{product.name}</div>
 			{#if product.price !== undefined}
-				<div class="text-sm md:text-sm lg:text-lg">{product.price.toLocaleString()}円~</div>
+				<div class="text-sm md:text-base">
+					{product.price.toLocaleString()}<span class="text-xs md:text-sm">円~</span>
+				</div>
 			{/if}
 		{/if}
 	</div>

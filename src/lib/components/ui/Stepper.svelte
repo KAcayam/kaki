@@ -44,7 +44,7 @@
 
 			<!-- ステップラベル -->
 			<div
-				class="mt-2 text-center text-xs whitespace-nowrap sm:text-sm
+				class="mt-2 text-center text-xs whitespace-nowrap md:text-sm
 				{getStepStatus(index) === 'current' ? 'font-semibold text-blue-400' : 'text-gray-300'}"
 			>
 				{step.label}

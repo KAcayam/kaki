@@ -3,19 +3,10 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Trash2 } from 'lucide-svelte';
 	import ConfirmDeleteModal from '$lib/components/ui/ConfirmDeleteModal.svelte';
-
-	interface ItemProps {
-		id: string;
-		title: string;
-		variant: string;
-		price: number;
-		quantity: number;
-		img?: string | null;
-		type: 'with-shell' | 'no-shell' | 'no-image' | 'login-required';
-	}
+	import type { CartItem, ProductType } from '$lib/types';
 
 	interface CartItemCardProps {
-		item: ItemProps;
+		item: CartItem;
 		onRemove: (id: string) => void;
 		onChangeQuantity: (id: string, quantity: number) => void;
 	}
@@ -36,9 +27,9 @@
 
 	let unitText = $derived.by(() => {
 		switch (item.type) {
-			case 'with-shell':
+			case 'withShell':
 				return 'kg';
-			case 'no-shell':
+			case 'noShell':
 				return 'パック';
 			default:
 				return '不明な単位';
@@ -83,10 +74,10 @@
 			<!-- 商品名 -->
 			<h2 class="text-sm font-medium md:text-lg">{item.title}</h2>
 			<!-- 税込単価 -->
-			<p class="mt-2 text-lg font-semibold md:text-xl">
-				{item.price.toLocaleString()} <span class="text-sm font-normal">円</span>
-				<span class="pl-3 text-sm text-gray-400">税込</span>
-			</p>
+			<div class="mt-2 text-lg font-semibold md:text-xl">
+				{item.price.toLocaleString()}<span class="pl-1 text-sm font-normal md:text-base">円</span>
+				<span class="pl-1 text-xs font-normal text-gray-400 md:text-sm">税込</span>
+			</div>
 		</div>
 
 		<div class="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">

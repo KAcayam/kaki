@@ -6,9 +6,9 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col items-center justify-center pt-4">
+	<div class="mx-4 flex w-full max-w-screen-2xl flex-col items-center justify-center pt-4 md:mx-8">
 		<!-- 戻るボタン -->
-		<div class="mb-4 ml-8 self-start">
+		<div class="mb-2 self-start md:mb-4">
 			<a
 				href="/"
 				class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
@@ -18,9 +18,9 @@
 			</a>
 		</div>
 		<!-- タイトル -->
-		<h1 class="mb-6 ml-8 self-start text-xl">{pageTitle}</h1>
+		<h1 class="mb-6 self-start text-base md:text-xl">{pageTitle}</h1>
 		<!-- フォームパネル -->
-		<div class="flex w-full flex-col gap-6 px-8 md:max-w-sm">
+		<div class="flex w-full flex-col gap-6 md:max-w-sm">
 			<LoginForm signupLink="/signup" />
 		</div>
 	</div>

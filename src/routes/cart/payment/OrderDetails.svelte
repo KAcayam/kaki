@@ -3,24 +3,9 @@
 	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import type { OrderSummary } from '$lib/types';
 
-	interface OrderSummaryCardProps {
-		cartItems: {
-			id: string;
-			title: string;
-			variant: string;
-			price: number;
-			quantity: number;
-			img: string | null;
-		}[];
-		subtotal: number;
-		shippingCost: number;
-		total: number;
-		formatCurrency: (amount: number) => string;
-	}
-
-	let { cartItems, subtotal, shippingCost, total, formatCurrency }: OrderSummaryCardProps =
-		$props();
+	let { cartItems, subtotal, shippingCost, total }: OrderSummary = $props();
 
 	let isDesktop = $state(false);
 
@@ -55,8 +40,11 @@
 				<div class="space-y-2">
 					{#each cartItems as item (item.id)}
 						<div class="flex justify-between text-sm text-gray-700">
-							<span>{item.title} × {item.quantity}</span>
-							<span>{formatCurrency(item.price * item.quantity)}</span>
+							<div>{item.title} × {item.quantity}</div>
+							<div>
+								{(item.price * item.quantity).toLocaleString()}
+								<span class="text-xs text-gray-500 md:text-sm">円</span>
+							</div>
 						</div>
 					{/each}
 				</div>
@@ -69,21 +57,27 @@
 	<!-- 小計・送料 -->
 	<div class="space-y-2">
 		<div class="flex justify-between text-sm">
-			<span class="text-gray-600">小計</span>
-			<span>{formatCurrency(subtotal)}</span>
+			<div class="text-gray-600">小計</div>
+			<div>
+				{subtotal.toLocaleString()}<span class="pl-1 text-xs text-gray-500 md:text-sm">円</span>
+			</div>
 		</div>
 		<div class="flex justify-between text-sm">
-			<span class="text-gray-600">送料</span>
-			<span>{formatCurrency(shippingCost)}</span>
+			<div class="text-gray-600">送料</div>
+			<div>
+				{shippingCost.toLocaleString()}<span class="pl-1 text-xs text-gray-500 md:text-sm">円</span>
+			</div>
 		</div>
 
 		<!-- 合計 -->
 		<div class="flex justify-between">
 			<div>
 				<span class="font-semibold">合計</span>
-				<span class="pl-1 text-sm text-gray-400">税込</span>
+				<span class="pl-1 text-xs font-normal text-gray-400 md:text-sm">税込</span>
 			</div>
-			<span class="text-lg font-semibold">{formatCurrency(total)}</span>
+			<div class="text-lg font-semibold">
+				{total.toLocaleString()}<span class="pl-1 text-xs text-gray-500 md:text-sm">円</span>
+			</div>
 		</div>
 	</div>
 </div>

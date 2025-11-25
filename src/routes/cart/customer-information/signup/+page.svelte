@@ -3,6 +3,6 @@
 </script>
 
 <div class="mx-auto w-full max-w-sm px-4">
-	<div class="mb-2 text-gray-500">新規登録</div>
+	<div class="mb-2 text-sm text-gray-500 md:text-base">新規登録</div>
 	<SignupForm cancelLink="/cart/customer-information" />
 </div>
