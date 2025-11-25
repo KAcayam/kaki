@@ -10,11 +10,11 @@
 	// 出荷不可日
 	// prettier-ignore
 	const PRESELECTED = [
-    new CalendarDate(2025, 10, 12),
-    new CalendarDate(2025, 10, 24),
-    new CalendarDate(2025, 11, 4),
     new CalendarDate(2025, 11, 12),
-    new CalendarDate(2025, 11, 13),
+    new CalendarDate(2025, 11, 24),
+    new CalendarDate(2025, 12, 4),
+    new CalendarDate(2025, 12, 12),
+    new CalendarDate(2025, 12, 13),
   ];
 
 	const keyOf = (d: { year: number; month: number; day: number }) =>
@@ -30,12 +30,12 @@
 	let placeholder: CalendarDate = $state(today(getLocalTimeZone()));
 </script>
 
-<div class="flex items-center gap-2">
+<div class="flex items-center gap-1 md:gap-2">
 	<Popover.Root bind:open={openCalendar}>
 		<Popover.Trigger>
 			{#snippet child({ props })}
 				<Button {...props} variant="ghost" class="cursor-pointer !p-0">
-					<CalendarIcon class="!h-7 !w-7 text-gray-600" />
+					<CalendarIcon class="!h-6 !w-6 text-gray-600 md:!h-7 md:!w-7" />
 				</Button>
 			{/snippet}
 		</Popover.Trigger>
@@ -51,7 +51,7 @@
 		</Popover.Content>
 	</Popover.Root>
 	<div class="flex flex-col gap-0.5">
-		<div class="text-sm leading-none text-gray-600">出荷カレンダー</div>
-		<div class="text-sm leading-none text-red-500">赤印の日は出荷不可</div>
+		<div class="text-xs leading-none text-gray-600 md:text-sm">出荷カレンダー</div>
+		<div class="text-xs leading-none text-red-500 md:text-sm">赤印の日は出荷不可</div>
 	</div>
 </div>

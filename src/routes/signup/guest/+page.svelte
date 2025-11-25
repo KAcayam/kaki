@@ -36,9 +36,9 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-4">
+	<div class="mx-4 flex w-full max-w-screen-2xl flex-col justify-center pt-4 md:mx-8">
 		<!-- ヘッダー -->
-		<div class="mb-4 ml-8 self-start">
+		<div class="mb-2 self-start md:mb-4">
 			<a
 				href="/"
 				class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
@@ -49,12 +49,12 @@
 		</div>
 
 		<!-- ページタイトル -->
-		<div class="mb-2 ml-8 flex flex-row items-center gap-8 md:mb-4">
-			<div class="text-md md:text-xl">アカウント情報登録</div>
+		<div class="mb-2 flex flex-row items-center gap-8 md:mb-4">
+			<div class="text-base md:text-xl">アカウント情報登録</div>
 		</div>
 
 		<!-- アカウント登録フォーム -->
-		<div class="flex w-full flex-col items-center px-8">
+		<div class="flex w-full flex-col items-center">
 			<GuestSignupForm
 				{guestUser}
 				onSave={handleSaveTemp}

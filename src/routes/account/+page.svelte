@@ -9,6 +9,8 @@
 	import { toast } from 'svelte-sonner';
 	import data from '$lib/data.json';
 
+	export const pageTitle = 'アカウント情報';
+
 	// メインユーザー情報
 	let user = $state(data.user.find((u) => u.isPrimary)!);
 
@@ -82,12 +84,12 @@
 				class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
 			>
 				<ChevronLeft class="h-4 w-4 text-gray-600" />
-				<span class="text-sm">TOPに戻る</span>
+				<div class="text-xs md:text-sm">TOPに戻る</div>
 			</a>
 		</div>
 
-		<div class="mb-2 ml-8 flex flex-row items-center gap-8 md:mb-4">
-			<div class="text-md md:text-xl">アカウント情報</div>
+		<div class="mb-2 ml-8 flex flex-row items-center md:mb-4">
+			<div class="text-base md:text-xl">{pageTitle}</div>
 		</div>
 
 		<div class="flex w-full flex-col items-center px-8">

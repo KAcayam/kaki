@@ -5,15 +5,19 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { isLoggedIn, logout, userName } from '$lib/stores/auth';
 	import { goto } from '$app/navigation';
-	import { User, LogOut } from 'lucide-svelte';
+	import { User, Clipboard, LogOut } from 'lucide-svelte';
 
-	let { accountEditLink = '/account' } = $props<{ accountEditLink?: string }>();
+	let { accountEditLink = '/account', orderHistoryLink = '/orders' } = $props<{
+		accountEditLink?: string;
+		orderHistoryLink?: string;
+	}>();
+
 	// カート内のアイテム数（仮の定数）
 	const cartItemCount = 1;
 </script>
 
 <header class="w-full border-b border-gray-200 bg-white">
-	<div class="flex items-center justify-between px-4 py-2">
+	<div class="mr-2 ml-4 flex items-center justify-between py-2 md:mr-4">
 		<a href="/" class="cursor-pointer">
 			<span class="font-middle text-xl">新鮮な牡蠣販売所</span>
 		</a>
@@ -44,6 +48,10 @@
 							<DropdownMenu.Item class="cursor-pointer" onclick={() => goto(accountEditLink)}>
 								<User class="h-4 w-4" />
 								<span>アカウント</span>
+							</DropdownMenu.Item>
+							<DropdownMenu.Item class="cursor-pointer" onclick={() => goto(orderHistoryLink)}>
+								<Clipboard class="h-4 w-4" />
+								<span>注文履歴</span>
 							</DropdownMenu.Item>
 							<DropdownMenu.Item class="cursor-pointer" onclick={logout}>
 								<LogOut class="h-4 w-4" />

@@ -3,22 +3,7 @@
 	import * as RadioGroup from '$lib/components/ui/radio-group';
 	import { Pencil, Trash2 } from 'lucide-svelte';
 	import ConfirmDeleteModal from '$lib/components/ui/ConfirmDeleteModal.svelte';
-
-	interface User {
-		id: string;
-		isPrimary?: boolean;
-		lastName: string;
-		firstName: string;
-		lastNameKana: string;
-		firstNameKana: string;
-		email?: string;
-		postalCode: string;
-		prefecture: string;
-		address1: string;
-		address2: string;
-		phoneNumber: string;
-		receiveCampaignEmails: boolean;
-	}
+	import type { User } from '$lib/types';
 
 	let { user, onEdit, onDelete } = $props<{
 		user: User;

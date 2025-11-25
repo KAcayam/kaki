@@ -2,23 +2,15 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Select from '$lib/components/ui/select';
 	import SelectCalendar from '$lib/components/ui/SelectCalendar.svelte';
-	import * as Dialog from '$lib/components/ui/dialog';
-	import { goto } from '$app/navigation';
-	import { Check } from 'lucide-svelte';
-
-	interface Product {
-		id: string;
-		name: string;
-		price: number;
-		inStock: boolean;
-	}
+	import type { Product, ProductType } from '$lib/types';
+	import AddToCart from './AddToCart.svelte';
 
 	let {
 		product,
 		productType = 'withShell'
 	}: {
 		product: Product;
-		productType?: 'withShell' | 'noShell' | 'noImage' | 'loginRequired' | 'generic';
+		productType?: ProductType;
 	} = $props();
 
 	// 数量の選択肢
@@ -61,14 +53,12 @@
 		showAddedToCartModal = true;
 	}
 
-	function handleProceedToCheckout() {
+	function handleProceedToCheckoutCallback() {
 		showAddedToCartModal = false;
-		goto('/cart');
 	}
 
-	function handleContinueShopping() {
+	function handleContinueShoppingCallback() {
 		showAddedToCartModal = false;
-		goto('/');
 	}
 
 	function handleModalOpenChange(newOpen: boolean) {
@@ -82,8 +72,8 @@
 			<p class="text-sm text-muted-foreground">{priceUnit}</p>
 			<div class="flex items-baseline gap-2">
 				<span class="text-2xl font-medium">{product.price.toLocaleString()}</span>
-				<span class="text-lg">円</span>
-				<span class="ml-2 text-sm text-muted-foreground">税込</span>
+				<span class="text-base md:text-lg">円</span>
+				<span class="text-xs text-muted-foreground md:text-sm">税込</span>
 			</div>
 			<div class="mt-2 text-sm text-gray-700">
 				在庫：
@@ -135,34 +125,12 @@
 			</Button>
 		</div>
 
-		<!-- モーダルをページ内に統合 -->
-		<Dialog.Root bind:open={showAddedToCartModal} onOpenChange={handleModalOpenChange}>
-			<Dialog.Content class="w-96">
-				<Dialog.Header>
-					<div class="mt-4 ml-6 flex items-center gap-1">
-						<Check class="h-6 w-6 text-green-500" />
-						<Dialog.Description class="text-sm text-gray-600"
-							>カートに商品が追加されました</Dialog.Description
-						>
-					</div>
-				</Dialog.Header>
-
-				<div class="mx-auto flex flex-col gap-4 py-4">
-					<Button
-						onclick={handleProceedToCheckout}
-						class="w-72 cursor-pointer bg-blue-500 hover:bg-blue-600"
-					>
-						カートを確認する
-					</Button>
-					<Button
-						onclick={handleContinueShopping}
-						class="w-72 cursor-pointer text-gray-600"
-						variant="outline"
-					>
-						買い物を続ける
-					</Button>
-				</div>
-			</Dialog.Content>
-		</Dialog.Root>
+		<!-- モーダルAddtoCartコンポーネント -->
+		<AddToCart
+			bind:open={showAddedToCartModal}
+			onOpenChange={handleModalOpenChange}
+			onProceedToCheckout={handleProceedToCheckoutCallback}
+			onContinueShopping={handleContinueShoppingCallback}
+		/>
 	</div>
 </div>

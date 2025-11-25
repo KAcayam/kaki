@@ -61,7 +61,9 @@
 	<div class="mb-4">
 		<div class="flex items-center justify-between">
 			<div class="text-sm">商品小計</div>
-			<div class="">¥{subtotal.toLocaleString()}</div>
+			<div class="">
+				{subtotal.toLocaleString()}<span class="pl-1 text-xs text-gray-500 md:text-sm">円</span>
+			</div>
 		</div>
 	</div>
 
@@ -78,7 +80,9 @@
 				<div class="text-lg">合計</div>
 				<div class="text-sm text-gray-500">税込</div>
 			</div>
-			<div class="text-xl font-semibold">¥{total.toLocaleString()}</div>
+			<div class="text-xl font-semibold">
+				{total.toLocaleString()}<span class="pl-1 text-xs text-gray-500 md:text-sm">円</span>
+			</div>
 		</div>
 	</div>
 

@@ -65,7 +65,7 @@
 </script>
 
 {#if $isLoggedIn}
-	<div class="flex w-full flex-col items-center px-8">
+	<div class="flex w-full flex-col items-center">
 		{#if isEditing}
 			<AccountEdit
 				editingAccount={tempAccount}

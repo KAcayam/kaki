@@ -52,7 +52,7 @@
 			"name": "殻付き生牡蠣",
 			"price": 4800,
 			"image": "/images/sample/kaki1.png",
-			"type": "with-shell",
+			"type": "withShell",
 			"inStock": true,
 			"description": "・販売は1kg単位になります。自然のものなので多少の前後があることをご理解ください。",
 			"detailImages": [
@@ -66,7 +66,7 @@
 			"name": "特選殻付き生牡蠣",
 			"price": 5200,
 			"image": "/images/sample/kaki2.jpeg",
-			"type": "with-shell",
+			"type": "withShell",
 			"inStock": true,
 			"description": "・厳選された特選の殻付き生牡蠣です。特別な日にぜひ。",
 			"detailImages": [
@@ -80,7 +80,7 @@
 			"name": "隠岐産殻付き生牡蠣",
 			"price": 7900,
 			"image": "/images/sample/kaki3.jpg",
-			"type": "with-shell",
+			"type": "withShell",
 			"inStock": true,
 			"description": "・隠岐の豊かな海で育ったブランド牡蠣です。",
 			"detailImages": [
@@ -94,7 +94,7 @@
 			"name": "画像なし商品サンプル",
 			"price": 3500,
 			"image": null,
-			"type": "no-image",
+			"type": "noImage",
 			"inStock": true,
 			"description": "・こちらは現在未入荷のため画像がまだありません。",
 			"detailImages": []
@@ -104,7 +104,7 @@
 			"name": "むき身 商品サンプル",
 			"price": 2800,
 			"image": "/images/sample/muki1.jpg",
-			"type": "no-shell",
+			"type": "noShell",
 			"inStock": false,
 			"description": "・1パックはおよそ500gとなります。自然のものなので多少の前後があることをご理解ください。",
 			"detailImages": ["/images/sample/muki1.jpg", "/images/sample/muki2.jpg"]
@@ -114,7 +114,7 @@
 			"name": "ログイン必須商品A",
 			"price": 1000,
 			"image": null,
-			"type": "login-required",
+			"type": "loginRequired",
 			"isLoggedInRequired": true,
 			"inStock": true,
 			"description": "・ログインユーザーのみ購入可能な商品です。",
@@ -125,11 +125,56 @@
 			"name": "ログイン必須商品B",
 			"price": 2000,
 			"image": null,
-			"type": "login-required",
+			"type": "loginRequired",
 			"isLoggedInRequired": true,
 			"inStock": true,
 			"description": "・ログインユーザーのみ購入可能な商品です。",
 			"detailImages": []
+		}
+	],
+	"orders": [
+		{
+			"id": "oys-2025-1223-001",
+			"date": "2025-12-23",
+			"total": 24100,
+			"subtotal": 22900,
+			"shippingCost": 1200,
+			"status": "入金待ち",
+			"items": [
+				{ "productId": "oyster-001", "quantity": 2, "price": 4800 },
+				{ "productId": "oyster-002", "quantity": 1, "price": 5200 },
+				{ "productId": "oyster-003", "quantity": 3, "price": 2700 }
+			]
+		},
+		{
+			"id": "oys-2025-1204-002",
+			"date": "2025-12-04",
+			"total": 5180,
+			"subtotal": 4300,
+			"shippingCost": 880,
+			"status": "発送準備中",
+			"items": [{ "productId": "oyster-001", "quantity": 1, "price": 4300 }]
+		},
+		{
+			"id": "oys-2025-1124-001",
+			"date": "2025-11-24",
+			"total": 11100,
+			"subtotal": 10100,
+			"shippingCost": 1000,
+			"status": "キャンセル済み",
+			"items": [
+				{ "productId": "oyster-005", "quantity": 2, "price": 4800 },
+				{ "productId": "oyster-003", "quantity": 1, "price": 1300 }
+			]
+		},
+		{
+			"id": "oys-2025-1121-001",
+			"date": "2025-11-21",
+			"total": 9480,
+			"subtotal": 8600,
+			"shippingCost": 880,
+			"status": "配達完了",
+			"items": [{ "productId": "oyster-004", "quantity": 2, "price": 4300 }]
 		}
 	]
 }

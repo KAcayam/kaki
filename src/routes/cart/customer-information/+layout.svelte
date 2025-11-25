@@ -23,23 +23,23 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-	<div class="flex w-full max-w-screen-2xl flex-col justify-center pt-4">
-		<div class="mb-4 ml-8 self-start">
+	<div class="mx-4 flex w-full max-w-screen-2xl flex-col justify-center pt-4 md:mx-8">
+		<div class="md:max-w-2xlself-start mb-4">
 			<a
 				href="/cart"
 				class="flex cursor-pointer items-center gap-2 text-gray-500 transition-colors hover:text-gray-700"
 			>
 				<ChevronLeft class="h-4 w-4 text-gray-600" />
-				<span class="text-sm">カートに戻る</span>
+				<div class="text-xs md:text-sm">カートに戻る</div>
 			</a>
 		</div>
 
-		<div class="mx-auto mb-4 w-full max-w-4xl px-8">
+		<div class="mx-auto mb-4 w-full max-w-4xl md:max-w-2xl">
 			<Stepper currentStepIndex={currentStepperIndex} />
 		</div>
 
-		<div class="mb-2 ml-8 flex flex-row items-center gap-8 md:mb-4">
-			<div class="text-md md:text-xl">{pageTitle}</div>
+		<div class="md:max-w-2xlflex mb-2 flex-row items-center gap-8 md:mb-4">
+			<div class="text-base md:text-xl">{pageTitle}</div>
 		</div>
 
 		{@render children({ isLoggedIn: $isLoggedIn, pageTitle })}

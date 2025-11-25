@@ -6,7 +6,7 @@
 
 	// 親コンポーネントからモーダルの開閉状態とコールバック関数を受け取る
 	let {
-		open,
+		open = $bindable(),
 		onProceedToCheckout = () => {},
 		onContinueShopping = () => {},
 		onOpenChange = (newOpen: boolean) => {}
@@ -30,7 +30,6 @@
 	}
 
 	function handleDialogOpenChange(newOpen: boolean) {
-		open = newOpen;
 		onOpenChange(newOpen);
 	}
 </script>
@@ -41,7 +40,7 @@
 		<Dialog.Header>
 			<div class="mt-4 ml-6 flex items-center gap-1">
 				<Check class="h-6 w-6 text-green-500" />
-				<Dialog.Title class="text-gray-600">カートに商品が追加されました</Dialog.Title>
+				<div class="text-sm text-gray-600 md:text-base">カートに商品が追加されました</div>
 			</div>
 		</Dialog.Header>
 		<div class="mx-auto flex flex-col gap-4 py-4">
@@ -49,7 +48,7 @@
 				onclick={handleProceedToCheckoutInternal}
 				class="w-72 cursor-pointer bg-blue-500 hover:bg-blue-600"
 			>
-				支払いに進む
+				カートを確認する
 			</Button>
 			<Button
 				onclick={handleContinueShoppingInternal}

@@ -14,7 +14,7 @@
 <footer class="mt-8 w-full border-t border-gray-200">
 	<div class="container mx-auto flex flex-col items-center gap-2 px-4 pt-4">
 		<nav
-			class="flex flex-col items-center gap-2 text-sm text-gray-500 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-8"
+			class="flex flex-col items-center gap-2 text-xs text-gray-500 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-8 md:text-sm"
 		>
 			<Dialog.Root bind:open={showContactModal}>
 				<Dialog.Trigger>
